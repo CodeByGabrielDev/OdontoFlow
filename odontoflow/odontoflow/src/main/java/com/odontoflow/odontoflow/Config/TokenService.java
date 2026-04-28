@@ -6,7 +6,7 @@ import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
-import com.odontoflow.odontoflow.Entities.Professional;
+import com.odontoflow.odontoflow.Entities.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,10 +18,11 @@ public class TokenService {
 
     private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor("odontoflow-secret-super-segura-123456".getBytes());
 
-    public String gerarToken(Professional professional) {
+    public String gerarToken(User user) {
         return Jwts.builder()
-                .setSubject(professional.getLogin())
-                .claim("perfil", professional.getRoles().name())
+                .setSubject(user.getUsername())
+                .claim("role", user.getRole().name())
+                .claim("professionalId", user.getProfessional().getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(SECRET_KEY, SignatureAlgorithm.HS256)

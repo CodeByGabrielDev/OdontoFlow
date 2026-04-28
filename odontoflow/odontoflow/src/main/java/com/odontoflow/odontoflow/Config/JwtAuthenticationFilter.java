@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.odontoflow.odontoflow.Repository.ProfessionalRepository;
+import com.odontoflow.odontoflow.Repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final ProfessionalRepository professionalRepository;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -36,21 +36,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
-        String login;
+        String username;
 
         try {
-            login = tokenService.getSubject(token);
+            username = tokenService.getSubject(token);
         } catch (Exception e) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails professional = professionalRepository.findByLogin(login);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails user = userRepository.findByUsername(username);
 
-            if (professional != null) {
+            if (user != null) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        professional, null, professional.getAuthorities());
+                        user, null, user.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
