@@ -1,6 +1,7 @@
 package com.odontoflow.odontoflow.Entities;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,26 +13,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "professional")
+@Table
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-public class Professional {
-
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String cro;
+    private String cpf;
+    private LocalDate birthDate;
     private String phone;
     private String email;
-
-    private List<User>user = new ArrayList<>();
-
-    public Professional(String name, String cro, String phone, String email) {
+    private String address;
+    private LocalDateTime createdAt;
+    public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address, LocalDateTime createdAt) {
         this.name = name;
-        this.cro = cro;
+        this.cpf = cpf;
+        this.birthDate = birthDate;
         this.phone = phone;
         this.email = email;
+        this.address = address;
+        this.createdAt = createdAt;
     }
+
 }

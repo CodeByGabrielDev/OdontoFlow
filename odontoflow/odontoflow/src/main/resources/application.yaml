@@ -1,3 +1,18 @@
 spring:
-  application:
-    name: odontoflow
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: ODONTOFLOW
+    password: senha123
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080

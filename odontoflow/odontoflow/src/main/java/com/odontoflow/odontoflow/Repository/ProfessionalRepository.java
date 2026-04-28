@@ -7,6 +7,5 @@ import com.odontoflow.odontoflow.Entities.Professional;
 
 @Repository
 public interface ProfessionalRepository extends CrudRepository<Professional, Long> {
-    Professional findByLogin(String login);
     Professional findByCro(String cro);
 }

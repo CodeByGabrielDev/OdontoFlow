@@ -7,8 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.odontoflow.odontoflow.Entities.Professional;
-import com.odontoflow.odontoflow.Repository.ProfessionalRepository;
+import com.odontoflow.odontoflow.Repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,14 +15,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuariosLojaDetailsService implements UserDetailsService {
 
-    private final ProfessionalRepository professionalRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Professional professional = this.professionalRepository.findByLogin(username);
-        if (professional == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profissional não encontrado");
+        UserDetails user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado");
         }
-        return professional;
+        return user;
     }
 }
