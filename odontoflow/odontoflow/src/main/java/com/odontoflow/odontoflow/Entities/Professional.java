@@ -1,11 +1,13 @@
 package com.odontoflow.odontoflow.Entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +27,8 @@ public class Professional {
     private String cro;
     private String phone;
     private String email;
-
-    private List<User>user = new ArrayList<>();
+    @OneToMany(mappedBy = "professional")
+    private List<User> user = new ArrayList<>();
 
     public Professional(String name, String cro, String phone, String email) {
         this.name = name;
