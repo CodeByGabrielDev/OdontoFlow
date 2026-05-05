@@ -1,5 +1,8 @@
 package com.odontoflow.odontoflow.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.odontoflow.odontoflow.Enum.StatusTreatment;
 
 import jakarta.persistence.Column;
@@ -11,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +36,8 @@ public class Treatment {
     private StatusTreatment statusTreatment;
     @Column(name = "total_value")
     private Double totalValue;
+    @OneToMany(mappedBy = "treatment")
+    private List<TreatmentItem>treatments= new ArrayList<>();
     public Treatment(Patient patient, StatusTreatment statusTreatment, Double totalValue) {
         this.patient = patient;
         this.statusTreatment = statusTreatment;
