@@ -2,6 +2,9 @@ package com.odontoflow.odontoflow.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +23,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Procedure {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
 
     private String name;
 

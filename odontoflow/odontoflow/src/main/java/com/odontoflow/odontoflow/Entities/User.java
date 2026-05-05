@@ -2,7 +2,9 @@ package com.odontoflow.odontoflow.Entities;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,8 +32,9 @@ import lombok.Setter;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)

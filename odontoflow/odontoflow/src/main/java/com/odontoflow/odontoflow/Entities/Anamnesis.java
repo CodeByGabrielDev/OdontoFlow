@@ -1,6 +1,9 @@
 package com.odontoflow.odontoflow.Entities;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +23,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Anamnesis {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "id_patient")
     private Patient patient;

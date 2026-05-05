@@ -2,6 +2,9 @@ package com.odontoflow.odontoflow.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
 
 import com.odontoflow.odontoflow.Enum.StatusTreatment;
 
@@ -27,8 +30,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Treatment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "id_patient")
     private Patient patient;

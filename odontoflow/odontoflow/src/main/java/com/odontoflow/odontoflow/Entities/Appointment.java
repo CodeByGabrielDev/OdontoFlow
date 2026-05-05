@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.cglib.core.Local;
 
 import com.odontoflow.odontoflow.Enum.StatusAppointment;
@@ -30,8 +32,9 @@ import lombok.Setter;
 @Setter
 public class Appointment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "id_patient")
     private Patient patient;

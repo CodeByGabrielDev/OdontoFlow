@@ -1,6 +1,9 @@
 package com.odontoflow.odontoflow.Entities;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
 
 import com.odontoflow.odontoflow.Enum.TypeReminder;
 
@@ -24,8 +27,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AppointmentReminder {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "id_appointment")
     private Appointment appointment;

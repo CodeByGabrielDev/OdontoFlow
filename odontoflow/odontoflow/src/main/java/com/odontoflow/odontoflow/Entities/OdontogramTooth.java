@@ -1,5 +1,9 @@
 package com.odontoflow.odontoflow.Entities;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,8 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OdontogramTooth {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @UuidGenerator
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "id_odontogram")
     private Odontogram odontogram;
