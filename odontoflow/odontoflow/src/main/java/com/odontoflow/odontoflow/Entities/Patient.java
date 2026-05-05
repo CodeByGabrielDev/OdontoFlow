@@ -2,11 +2,14 @@ package com.odontoflow.odontoflow.Entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +31,17 @@ public class Patient {
     private String email;
     private String address;
     private LocalDateTime createdAt;
-    public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address, LocalDateTime createdAt) {
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointment = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<Anamnesis> anamnesis = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<Treatment> procedures = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<Odontogram>odontograms = new ArrayList<>();
+
+    public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address,
+            LocalDateTime createdAt) {
         this.name = name;
         this.cpf = cpf;
         this.birthDate = birthDate;

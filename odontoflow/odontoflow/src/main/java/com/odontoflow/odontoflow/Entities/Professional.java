@@ -28,6 +28,9 @@ public class Professional {
     private String phone;
     private String email;
     @OneToMany(mappedBy = "professional")
+    private List<Appointment>appointments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "professional")
     private List<User> user = new ArrayList<>();
 
     public Professional(String name, String cro, String phone, String email) {

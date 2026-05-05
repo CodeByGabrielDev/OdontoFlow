@@ -1,9 +1,8 @@
 package com.odontoflow.odontoflow.Entities;
 
-import java.time.LocalDateTime;
+import com.odontoflow.odontoflow.Enum.StatusTreatment;
 
-import com.odontoflow.odontoflow.Enum.TypeReminder;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,28 +17,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "appointment_reminder")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
-public class AppointmentReminder {
+public class Treatment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "id_appointment")
-    private Appointment appointment;
+    @JoinColumn(name = "id_patient")
+    private Patient patient;
     @Enumerated(EnumType.STRING)
-    private TypeReminder typeReminder;
-
-    private LocalDateTime sendAt;
-
-    public AppointmentReminder(Appointment appointment, TypeReminder typeReminder, LocalDateTime sendAt) {
-        this.appointment = appointment;
-        this.typeReminder = typeReminder;
-        this.sendAt = sendAt;
+    private StatusTreatment statusTreatment;
+    @Column(name = "total_value")
+    private Double totalValue;
+    public Treatment(Patient patient, StatusTreatment statusTreatment, Double totalValue) {
+        this.patient = patient;
+        this.statusTreatment = statusTreatment;
+        this.totalValue = totalValue;
     }
 
-
     
+
 }
