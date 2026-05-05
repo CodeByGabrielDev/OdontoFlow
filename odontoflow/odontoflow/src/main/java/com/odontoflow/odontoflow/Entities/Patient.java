@@ -45,6 +45,8 @@ public class Patient {
     private List<Odontogram>odontograms = new ArrayList<>();
     @OneToMany(mappedBy = "patient")
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<FinancialEntry>financialEntries = new ArrayList<>();
 
     public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address,
             LocalDateTime createdAt) {

@@ -32,8 +32,9 @@ public class Professional {
     private String phone;
     private String email;
     @OneToMany(mappedBy = "professional")
-    private List<Appointment>appointments = new ArrayList<>();
-
+    private List<Appointment> appointments = new ArrayList<>();
+    @OneToMany(mappedBy = "professional")
+    private List<Commission> commissions = new ArrayList<>();
     @OneToMany(mappedBy = "professional")
     private List<User> user = new ArrayList<>();
 

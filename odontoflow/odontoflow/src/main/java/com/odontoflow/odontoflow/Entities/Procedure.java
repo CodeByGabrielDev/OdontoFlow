@@ -32,6 +32,8 @@ public class Procedure {
     private Double priceDefault;
     @OneToMany(mappedBy = "procedure")
     private List<TreatmentItem> treatmentItems = new ArrayList<>();
+    @OneToMany(mappedBy = "procedure")
+    private List<Commission> commissions = new ArrayList<>();
 
     public Procedure(String name, Double priceDefault) {
         this.name = name;
