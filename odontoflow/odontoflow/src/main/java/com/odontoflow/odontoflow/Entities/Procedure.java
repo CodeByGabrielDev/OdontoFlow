@@ -17,31 +17,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "professional")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
-public class Professional {
-
+public class Procedure {
     @Id
     @GeneratedValue
     @UuidGenerator
     private UUID id;
-    private String name;
-    private String cro;
-    private String phone;
-    private String email;
-    @OneToMany(mappedBy = "professional")
-    private List<Appointment> appointments = new ArrayList<>();
-    @OneToMany(mappedBy = "professional")
-    private List<Commission> commissions = new ArrayList<>();
-    @OneToMany(mappedBy = "professional")
-    private List<User> user = new ArrayList<>();
 
-    public Professional(String name, String cro, String phone, String email) {
+    private String name;
+
+    private Double priceDefault;
+    @OneToMany(mappedBy = "procedure")
+    private List<TreatmentItem> treatmentItems = new ArrayList<>();
+    @OneToMany(mappedBy = "procedure")
+    private List<Commission> commissions = new ArrayList<>();
+
+    public Procedure(String name, Double priceDefault) {
         this.name = name;
-        this.cro = cro;
-        this.phone = phone;
-        this.email = email;
+        this.priceDefault = priceDefault;
     }
+
+    
 }
