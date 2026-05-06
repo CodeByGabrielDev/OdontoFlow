@@ -42,11 +42,13 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<Treatment> procedures = new ArrayList<>();
     @OneToMany(mappedBy = "patient")
-    private List<Odontogram>odontograms = new ArrayList<>();
+    private List<Odontogram> odontograms = new ArrayList<>();
     @OneToMany(mappedBy = "patient")
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
     @OneToMany(mappedBy = "patient")
-    private List<FinancialEntry>financialEntries = new ArrayList<>();
+    private List<FinancialEntry> financialEntries = new ArrayList<>();
+    @OneToMany(mappedBy = "patient")
+    private List<CampaignMessage> patients = new ArrayList<>();
 
     public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address,
             LocalDateTime createdAt) {
