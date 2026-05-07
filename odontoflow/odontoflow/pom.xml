@@ -83,6 +83,12 @@
             <version>23.3.0.23.09</version>
         </dependency>
 
+        <!--JACKSON-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
         <!-- 🧪 Testes -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
