@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.Collate;
 import org.hibernate.annotations.UuidGenerator;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,8 +30,14 @@ public class Professional {
     @UuidGenerator
     private UUID id;
     private String name;
-    private String cro;
+    private String ufCro;
+    @Column(unique = true)
+    private String codeCro;
+    @Column(unique = true)
+    private String cpf;
+    @Column(unique = true)
     private String phone;
+    @Column(unique = true)
     private String email;
     @OneToMany(mappedBy = "professional")
     private List<Appointment> appointments = new ArrayList<>();
@@ -38,9 +46,10 @@ public class Professional {
     @OneToMany(mappedBy = "professional")
     private List<User> user = new ArrayList<>();
 
-    public Professional(String name, String cro, String phone, String email) {
+    public Professional(String name, String codeCro, String cpf, String phone, String email) {
         this.name = name;
-        this.cro = cro;
+        this.codeCro = codeCro;
+        this.cpf = cpf;
         this.phone = phone;
         this.email = email;
     }

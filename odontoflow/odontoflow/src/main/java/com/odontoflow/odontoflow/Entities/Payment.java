@@ -44,5 +44,5 @@ public class Payment {
         this.paymentMethod = paymentMethod;
         this.paidAt = paidAt;
     }
-
+    
 }

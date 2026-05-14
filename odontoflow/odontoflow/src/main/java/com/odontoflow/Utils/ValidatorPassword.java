@@ -2,7 +2,7 @@ package com.odontoflow.Utils;
 
 public class ValidatorPassword {
 
-    public boolean validarPwd(String password) {
+    public static boolean validarPwd(String password) {
         boolean temNumero = false;
         boolean temLetra = false;
         boolean temEspecial = false;

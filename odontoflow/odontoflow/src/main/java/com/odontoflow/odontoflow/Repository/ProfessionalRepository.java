@@ -10,4 +10,6 @@ import com.odontoflow.odontoflow.Entities.Professional;
 @Repository
 public interface ProfessionalRepository extends CrudRepository<Professional, UUID> {
     Professional findByCro(String cro);
+
+    Professional findByCpf(String cpf);
 }
