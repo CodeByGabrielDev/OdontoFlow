@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +24,8 @@ import lombok.Setter;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
+    @UuidGenerator
     private UUID id;
     private String name;
 
@@ -32,7 +35,7 @@ public class Product {
 
     private Double cost;
     @OneToMany(mappedBy = "product")
-    private List<StockMovement>stockMovements = new ArrayList<>();
+    private List<StockMovement> stockMovements = new ArrayList<>();
 
     public Product(String name, Integer quantity, Integer minStock, Double cost) {
         this.name = name;
