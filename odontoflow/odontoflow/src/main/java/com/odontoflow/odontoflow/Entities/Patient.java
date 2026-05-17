@@ -12,6 +12,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -33,8 +35,10 @@ public class Patient {
     private LocalDate birthDate;
     private String phone;
     private String email;
-    private String address;
     private LocalDateTime createdAt;
+    @ManyToOne
+    @JoinColumn(name = "id_address")
+    private AddressPatient address;
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointment = new ArrayList<>();
     @OneToMany(mappedBy = "patient")
@@ -50,7 +54,7 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<CampaignMessage> patients = new ArrayList<>();
 
-    public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, String address,
+    public Patient(String name, String cpf, LocalDate birthDate, String phone, String email, AddressPatient address,
             LocalDateTime createdAt) {
         this.name = name;
         this.cpf = cpf;

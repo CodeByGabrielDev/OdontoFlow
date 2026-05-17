@@ -41,7 +41,7 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "id_professional")
     private Professional professional;
-    @OneToMany(mappedBy = "id_appointment_reminder")
+    @OneToMany(mappedBy = "appointment")
     private List<AppointmentReminder> appointmentReminer = new ArrayList<>();
     private LocalDateTime startAt;
     private LocalDateTime endAt;
