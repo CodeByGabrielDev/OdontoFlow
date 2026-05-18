@@ -8,6 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -38,7 +39,7 @@ public class AddressPatient {
     private String stateCode;
     private String state;
     private String region;
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Patient> patient = new ArrayList<>();
 
     public AddressPatient(String zipCode, String street, String complement, String unit, String district, String city,

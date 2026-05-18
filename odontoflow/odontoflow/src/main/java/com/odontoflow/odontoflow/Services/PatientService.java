@@ -29,16 +29,23 @@ public class PatientService {
         if (patientRequest == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, " o cadastro do cliente esta vazio");
         }
-
+        /*
+         * Construir uma validação para os atributos vindo do request, cliente pode
+         * informar atributos NULL ocasionando em NPE abaixo na criação do objeto
+         */
         Patient patient = new Patient(patientRequest.getName(), patientRequest.getCpf(), patientRequest.getBirth_Date(),
                 patientRequest.getPhone(), patientRequest.getEmail(), null, LocalDateTime.now());
 
         if (patientRequest.getCep() != null) {
             AddressCepResponse addressCepResponse = this.viaCepService.findZipCode(patientRequest.getCep());
+            System.out.println("CEP: " + patientRequest.getCep());
+
+            System.out.println("CEP entitdade: " + addressCepResponse.toString());
             AddressPatient addressPatient = new AddressPatient();
             if (addressCepResponse != null) {
                 helperInjectionCep(addressCepResponse, addressPatient);
             }
+            addressPatient.getPatient().add(patient);
             patient.setAddress(addressPatient);
         }
 
@@ -51,6 +58,9 @@ public class PatientService {
         PatientResponse patientResponse = new PatientResponse();
         if (patient.getAddress() != null) {
             helperAdressMountDto(patient, patientResponse);
+        }
+        if (patient.getPhone() != null) {
+            patientResponse.setPhone(patient.getPhone());
         }
         if (patient.getBirthDate() != null) {
             patientResponse.setBirth_Date(patient.getBirthDate());
@@ -98,32 +108,36 @@ public class PatientService {
     }
 
     private void helperAdressMountDto(Patient patient, PatientResponse patientResponse) {
-        if (patient.getAddress().getCity() != null) {
-            patientResponse.getAddressCepResponse().setCity(patient.getAddress().getCity());
+        patientResponse.setAddressCepResponse(new AddressCepResponse());
+        if (patient.getAddress() != null) {
+            if (patient.getAddress().getCity() != null) {
+                patientResponse.getAddressCepResponse().setCity(patient.getAddress().getCity());
+            }
+            if (patient.getAddress().getComplement() != null) {
+                patientResponse.getAddressCepResponse().setComplement(patient.getAddress().getComplement());
+            }
+            if (patient.getAddress().getDistrict() != null) {
+                patientResponse.getAddressCepResponse().setDistrict(patient.getAddress().getDistrict());
+            }
+            if (patient.getAddress().getRegion() != null) {
+                patientResponse.getAddressCepResponse().setRegion(patient.getAddress().getRegion());
+            }
+            if (patient.getAddress().getState() != null) {
+                patientResponse.getAddressCepResponse().setState(patient.getAddress().getState());
+            }
+            if (patient.getAddress().getStateCode() != null) {
+                patientResponse.getAddressCepResponse().setStateCode(patient.getAddress().getStateCode());
+            }
+            if (patient.getAddress().getStreet() != null) {
+                patientResponse.getAddressCepResponse().setStreet(patient.getAddress().getStreet());
+            }
+            if (patient.getAddress().getUnit() != null) {
+                patientResponse.getAddressCepResponse().setUnit(patient.getAddress().getUnit());
+            }
+            if (patient.getAddress().getZipCode() != null) {
+                patientResponse.getAddressCepResponse().setZipCode(patient.getAddress().getZipCode());
+            }
         }
-        if (patient.getAddress().getComplement() != null) {
-            patientResponse.getAddressCepResponse().setComplement(patient.getAddress().getComplement());
-        }
-        if (patient.getAddress().getDistrict() != null) {
-            patientResponse.getAddressCepResponse().setDistrict(patient.getAddress().getDistrict());
-        }
-        if (patient.getAddress().getRegion() != null) {
-            patientResponse.getAddressCepResponse().setRegion(patient.getAddress().getRegion());
-        }
-        if (patient.getAddress().getState() != null) {
-            patientResponse.getAddressCepResponse().setState(patient.getAddress().getState());
-        }
-        if (patient.getAddress().getStateCode() != null) {
-            patientResponse.getAddressCepResponse().setStateCode(patient.getAddress().getStateCode());
-        }
-        if (patient.getAddress().getStreet() != null) {
-            patientResponse.getAddressCepResponse().setStreet(patient.getAddress().getStreet());
-        }
-        if (patient.getAddress().getUnit() != null) {
-            patientResponse.getAddressCepResponse().setUnit(patient.getAddress().getUnit());
-        }
-        if (patient.getAddress().getZipCode() != null) {
-            patientResponse.getAddressCepResponse().setZipCode(patient.getAddress().getZipCode());
-        }
+
     }
 }

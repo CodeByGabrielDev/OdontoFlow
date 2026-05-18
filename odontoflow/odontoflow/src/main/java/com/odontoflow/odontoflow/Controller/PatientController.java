@@ -1,6 +1,7 @@
 package com.odontoflow.odontoflow.Controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +19,7 @@ public class PatientController {
     private final PatientService patientService;
 
     @PostMapping
-    public PatientResponse registerPatient( PatientRequest patientRequest) {
+    public PatientResponse registerPatient(@RequestBody PatientRequest patientRequest) {
         return this.patientService.registerPatient(patientRequest);
     }
 }
