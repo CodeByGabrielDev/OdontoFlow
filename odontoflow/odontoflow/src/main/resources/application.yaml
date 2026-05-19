@@ -1,12 +1,33 @@
+#Configuracao para usar ORACLE, quando eu estiver na facul utilizarei a configuracao da linha 21
+#ja em casa da para descomentar essa parte ae
+#spring:
+  #datasource:
+   # url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    #username: ODONTOFLOW
+    #password: senha123
+    #driver-class-name: oracle.jdbc.OracleDriver
+
+  #jpa:
+   # database-platform: org.hibernate.dialect.OracleDialect
+    #hibernate:
+     # ddl-auto: update
+    #show-sql: true
+    #properties:
+     # hibernate:
+      #  format_sql: true
+
+#server:
+ # port: 8080
+
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    username: ODONTOFLOW
-    password: senha123
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:mysql://localhost:3306/odontoflow?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    database-platform: org.hibernate.dialect.OracleDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true

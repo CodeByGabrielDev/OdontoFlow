@@ -3,6 +3,7 @@ package com.odontoflow.odontoflow.Entities;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.data.jpa.repository.query.Procedure;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,11 +30,11 @@ public class Commission {
     private Professional professional;
     @ManyToOne
     @JoinColumn(name = "id_procedure")
-    private Procedure procedure;
+    private Procedures procedure;
     private  Double percent;
     private Double amount;
 
-    public Commission(Professional professional, Procedure procedure, Double percent, Double amount) {
+    public Commission(Professional professional, Procedures procedure, Double percent, Double amount) {
         this.professional = professional;
         this.procedure = procedure;
         this.percent = percent;

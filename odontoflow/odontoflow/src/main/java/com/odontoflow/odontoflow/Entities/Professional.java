@@ -44,6 +44,8 @@ public class Professional {
     private List<Commission> commissions = new ArrayList<>();
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> user = new ArrayList<>();
+    @OneToMany(mappedBy = "professional")
+    private List<Anamnesis> anamnesis = new ArrayList<>();
     @Embedded
     private CroData cro;
 

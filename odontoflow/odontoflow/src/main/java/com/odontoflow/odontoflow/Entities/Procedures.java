@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Procedure {
+public class Procedures {
     @Id
     @GeneratedValue
     @UuidGenerator
@@ -35,7 +35,7 @@ public class Procedure {
     @OneToMany(mappedBy = "procedure")
     private List<Commission> commissions = new ArrayList<>();
 
-    public Procedure(String name, Double priceDefault) {
+    public Procedures(String name, Double priceDefault) {
         this.name = name;
         this.priceDefault = priceDefault;
     }

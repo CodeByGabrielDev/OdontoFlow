@@ -34,7 +34,7 @@ public class TreatmentItem {
     private Treatment treatment;
     @ManyToOne
     @JoinColumn(name = "id_procedure")
-    private Procedure procedure;
+    private Procedures procedure;
     private Integer tooth;
     @Enumerated(EnumType.STRING)
     private StatusTreatment statusTreatment;

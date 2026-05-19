@@ -1,5 +1,6 @@
 package com.odontoflow.odontoflow.Services;
 
+import com.odontoflow.odontoflow.Controller.PatientController;
 import java.net.http.HttpClient;
 import java.time.LocalDateTime;
 
@@ -29,6 +30,13 @@ public class PatientService {
         if (patientRequest == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, " o cadastro do cliente esta vazio");
         }
+
+        Patient patientValidator = this.patientRepository.findByCpfOrPhoneOrEmail(patientRequest.getCpf(),
+                patientRequest.getPhone(), patientRequest.getEmail());
+        if (patientValidator != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "informacoes ja informadas em outro paciente. CPF do paciente: " + patientValidator.getCpf());
+        }
         /*
          * Construir uma validação para os atributos vindo do request, cliente pode
          * informar atributos NULL ocasionando em NPE abaixo na criação do objeto
@@ -52,6 +60,27 @@ public class PatientService {
         patientRepository.save(patient);
         return mountDto(patient);
 
+    }
+
+    private void validateAttributesInDtoRequest(PatientRequest patientRequest) {
+        if (patientRequest.getBirth_Date() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " A data de nascimento não pode ser null");
+        }
+        if (patientRequest.getCep() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " O CEP deve ser preenchido");
+        }
+        if (patientRequest.getCpf() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " O Cpf nao pode ser null");
+        }
+        if (patientRequest.getEmail() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " O email nao pode ser null");
+        }
+        if (patientRequest.getName() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " O nome nao pode ser null");
+        }
+        if (patientRequest.getPhone() == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, " o telefone nao pode ser null");
+        }
     }
 
     public PatientResponse mountDto(Patient patient) {
