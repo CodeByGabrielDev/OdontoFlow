@@ -1,7 +1,6 @@
 using Domain.Entities.Pacientes;
 using Domain.Entities.Funcionarios;
 namespace Domain.Entities.Agenda;
-
 public class ListaEspera
 {
     public Guid Id{get;private set;}
@@ -11,12 +10,13 @@ public class ListaEspera
     public Dentista Dentista{get;private set;}
     public DateTime DataSolicitacao{get;private set;}
     public string? Observacao{get;private set;}
-
     private ListaEspera(){ }
-
-    public ListaEspera(Guid P)
+    public ListaEspera(Guid pacienteId,Guid dentistaId,string? observacao)
     {
         this.Id = Guid.NewGuid();
-
+        this.PacienteId = pacienteId;
+        this.DentistaId = dentistaId;
+        this.DataSolicitacao = DateTime.UtcNow;
+        this.Observacao = observacao;
     }
 }
