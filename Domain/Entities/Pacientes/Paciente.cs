@@ -7,30 +7,16 @@ namespace Domain.Entities.Pacientes;
 public class Paciente
 {
     public Guid Id { get; private set; }
-
     public string Nome { get; private set; }
-
     public Cpf Cpf { get; private set; }
-
     public Email Email { get; private set; }
-
     public Telefone Telefone { get; private set; }
-
     public DateTime DataNascimento { get; private set; }
-
     public string Sexo { get; private set; }
-
     public string Endereco { get; private set; }
-
     public bool Ativo { get; private set; }
-
     public DateTime CriadoEm { get; private set; }
-
-    private Paciente()
-    {
-
-    }
-
+    private Paciente(){ }
     public Paciente(string nome, Cpf cpf, Email email, Telefone telefone,
                     DateTime dataNascimento, string sexo, string endereco)
     {
