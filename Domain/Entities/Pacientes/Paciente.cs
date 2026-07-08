@@ -1,6 +1,4 @@
-using Domain.ValueObjects.Cpf;
-using Domain.ValueObjects.Email;
-using Domain.ValueObjects.Telefone;
+using Domain.ValueObjects;
 
 namespace Domain.Entities.Pacientes;
 
@@ -30,5 +28,10 @@ public class Paciente
         this.Endereco = endereco;
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
+    }
+
+    public void AtualizarDados()
+    {
+        
     }
 }
