@@ -30,8 +30,32 @@ public class Paciente
         this.CriadoEm = DateTime.UtcNow;
     }
 
-    public void AtualizarDados()
+    public void AtualizarDados(string? nome,
+    string? email,string? telefone,
+    string? sexo, string? endereco)
     {
-        
+        if (!string.IsNullOrWhiteSpace(nome))
+        {
+            this.Nome = nome;
+        }
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            Email emailEntity = new Email(email);
+            this.Email = emailEntity;
+        }
+        if (!string.IsNullOrWhiteSpace(telefone))
+        {
+            Telefone telefoneEntity = new Telefone(telefone);
+            this.Telefone = telefoneEntity;
+        }
+        if (!string.IsNullOrWhiteSpace(sexo))
+        {
+            this.Sexo = sexo;
+        }
+        if (!string.IsNullOrWhiteSpace(endereco))
+        {
+            this.Endereco = endereco;
+        }
     }
+   
 }
