@@ -6,5 +6,6 @@ public interface IPacienteRepository
     Task<bool> CpfJaCadastradoAsync(string cpf);
     Task AddAsync(Paciente paciente);
     Task UpdateAsync(Paciente paciente);
+    Task<IEnumerable<Paciente>> ListarPacientesFiltradosAsync(string? cpf, string? nome);
     
 }
