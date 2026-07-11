@@ -5,7 +5,7 @@ public interface IPacienteRepository
     Task<Paciente?> ObterPorIdAsync(Guid id);
     Task<bool> CpfJaCadastradoAsync(string cpf);
     Task AddAsync(Paciente paciente);
-    Task UpdateAsync(Paciente paciente);
+    Task Update(Paciente paciente);
     Task<IEnumerable<Paciente>> ListarPacientesFiltradosAsync(string? cpf, string? nome);
     
 }

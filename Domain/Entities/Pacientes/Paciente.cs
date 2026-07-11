@@ -6,6 +6,8 @@ public class Paciente
 {
     public Guid Id { get; private set; }
     public string Nome { get; private set; }
+    public Guid? ResponsavelId{get;private set;}
+    public Responsavel? Responsavel{get;private set;}
     public Cpf Cpf { get; private set; }
     public Email Email { get; private set; }
     public Telefone Telefone { get; private set; }
