@@ -14,8 +14,9 @@ public class OdontoFlowDbContext : DbContext
     public OdontoFlowDbContext(DbContextOptions<OdontoFlowDbContext> options) : base(options) { }
 
     public DbSet<Paciente> Pacientes => this.Set<Paciente>();
-    /*
+   
     public DbSet<Responsavel> Responsaveis => this.Set<Responsavel>();
+     /*
     public DbSet<Anamnese> Anamneses => this.Set<Anamnese>();
     
     public DbSet<Consulta> Consultas => this.Set<Consulta>();
