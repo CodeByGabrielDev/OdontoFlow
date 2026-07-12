@@ -1,4 +1,4 @@
-using Domain.Entities.Consulta;
+using Domain.Entities.Agenda;
 
 namespace Domain.Interfaces;
 
