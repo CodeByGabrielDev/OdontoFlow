@@ -22,7 +22,7 @@ public class GuiaAutorizacao
         this.PacienteId = pacienteId;
         this.ConvenioId = convenioId;
         this.ProcedimentoId = procedimentoId;
-        this.Status = StatusGuia.Pendente;
+        this.Status = StatusGuia.Solicitado;
         this.Observacao = observacao;
         this.CriadoEm = DateTime.UtcNow;
     }

@@ -24,7 +24,7 @@ public class AtualizarPacienteHandler : IRequestHandler<AtualizarPacienteCommand
         }
         paciente.AtualizarDados(atualizarPacienteCommand.Nome,atualizarPacienteCommand.Email,atualizarPacienteCommand.Telefone,
                                 atualizarPacienteCommand.Sexo,atualizarPacienteCommand.Endereco);
-        await this._pacienteRepository.UpdateAsync(paciente);
+        await this._pacienteRepository.Update(paciente);
         await this._unitOfWork.SaveChangesAsync();
         return Unit.Value;
     }

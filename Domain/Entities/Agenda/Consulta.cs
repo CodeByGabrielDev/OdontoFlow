@@ -16,7 +16,7 @@ public class Consulta{
     public string? Observacao{get;private set;}
     public DateTime CriadoEm{get;private set;}
     private Consulta(){ }
-    public Consulta(Guid pacienteId,Guid dentistaId,DateTime data,DateTime horaInicio,DateTime horaFim,StatusConsulta statusConsulta,string? observacao)
+    public Consulta(Guid pacienteId,Guid dentistaId,DateTime data,TimeSpan horaInicio,TimeSpan horaFim,StatusConsulta statusConsulta,string? observacao)
     {
         this.Id = Guid.NewGuid();
         this.PacienteId = pacienteId;

@@ -15,7 +15,7 @@ public class PacienteConfiguration : IEntityTypeConfiguration<Paciente>
         builder.OwnsOne(p => p.Cpf, cpf =>
         {
             cpf.Property(t => t.Valor).IsRequired().HasColumnName("Cpf").HasMaxLength(11);
-            cpf.HasIndex("Cpf_valor").IsUnique();
+            cpf.HasIndex(c=>c.Valor).IsUnique();
         });
         builder.OwnsOne(p => p.Email, email =>
         {
