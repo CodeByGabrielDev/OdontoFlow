@@ -16,9 +16,9 @@ public class OdontoFlowDbContext : DbContext
     public DbSet<Paciente> Pacientes => this.Set<Paciente>();
    
     public DbSet<Responsavel> Responsaveis => this.Set<Responsavel>();
-     /*
+     
     public DbSet<Anamnese> Anamneses => this.Set<Anamnese>();
-    
+    /*
     public DbSet<Consulta> Consultas => this.Set<Consulta>();
     public DbSet<GradeHorario> GradesHorario => this.Set<GradeHorario>();
     public DbSet<ListaEspera> ListasEspera => this.Set<ListaEspera>();

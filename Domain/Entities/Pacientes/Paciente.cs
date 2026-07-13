@@ -31,7 +31,6 @@ public class Paciente
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
     }
-
     public void AtualizarDados(string? nome,
     string? email,string? telefone,
     string? sexo, string? endereco)
