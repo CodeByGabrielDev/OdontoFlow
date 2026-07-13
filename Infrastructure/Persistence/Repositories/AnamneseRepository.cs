@@ -15,7 +15,7 @@ public class AnamneseRepository : IAnamneseRepository
     }
     public async Task<Anamnese?> BuscarAnamnesePorIdDoPaciente(Guid pacienteId)
     {
-        Anamnese? anamnese = await this._odontoFlowDbContext.Anamneses.Where(entidade => entidade.PacienteId == pacienteId)
+        Anamnese? anamnese = await this._odontoFlowDbContext.Anamneses.Include(entidade=>entidade.Paciente).Where(entidade => entidade.PacienteId == pacienteId)
                                                                       .FirstOrDefaultAsync();
         return anamnese;                                                               
     }

@@ -1,3 +1,4 @@
+using Application.Anamneses.Commands.CriarAnamnese;
 using Application.Anamneses.DTOs;
 using Application.Anamneses.Queries.BuscarAnamnesePorPaciente;
 using MediatR;
@@ -22,6 +23,12 @@ public class AnamneseController:ControllerBase
         return Ok(anamneseDto);
     }
     
+    [HttpPost]
+    public async Task<IActionResult> CadastrarAnamnese([FromBody] CriarAnamneseCommand criarAnamneseCommand)
+    {
+        Guid idAnamnese = await this._mediatR.Send(criarAnamneseCommand);
+        return Ok(idAnamnese);
+    }
 
     
 
