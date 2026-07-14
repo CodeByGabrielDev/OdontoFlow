@@ -17,6 +17,7 @@ public static class InfrastructureServiceExtensions
                                                             _configuration.GetConnectionString("DefaultConnection")));
         _serviceCollection.AddScoped<IPacienteRepository,PacienteRepository>();
         _serviceCollection.AddScoped<IAnamneseRepository,AnamneseRepository>();
+        
         _serviceCollection.AddScoped<IUnitOfWork,UnitOfWork>();
         return _serviceCollection;
     }
