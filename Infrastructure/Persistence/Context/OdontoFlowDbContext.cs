@@ -21,7 +21,7 @@ public class OdontoFlowDbContext : DbContext
     public DbSet<Alergias> Alergias => this.Set<Alergias>();
     public DbSet<DoencasSistemicas> DoencasSistemicas => this.Set<DoencasSistemicas>();
     public DbSet<MedicamentoEmUso> MedicamentoEmUso => this.Set<MedicamentoEmUso>();
-
+    public DbSet<Dentista> Dentistas => this.Set<Dentista>();
     public DbSet<Consulta> Consultas => this.Set<Consulta>();
     /*
     

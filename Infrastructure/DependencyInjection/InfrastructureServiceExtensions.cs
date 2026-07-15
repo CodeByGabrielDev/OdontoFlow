@@ -21,6 +21,7 @@ public static class InfrastructureServiceExtensions
         _serviceCollection.AddScoped<IMedicamentoEmUsoRepository, MedicamentoEmUsoRepository>();
         _serviceCollection.AddScoped<IDoencasSistemicasRepository, DoencasSistemicasRepository>();
         _serviceCollection.AddScoped<IConsultaRepository, ConsultaRepository>();
+        _serviceCollection.AddScoped<IDentistaRepository,DentistaRepository>();
         _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         return _serviceCollection;
     }
