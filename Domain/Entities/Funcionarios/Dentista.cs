@@ -1,3 +1,4 @@
+using Domain.Entities.Agenda;
 using Domain.ValueObjects;
 namespace Domain.Entities.Funcionarios;
 
@@ -5,6 +6,7 @@ public class Dentista
 {
     public Guid Id{get;private set;}
     public string Nome{get;private set;}
+    public List<Consulta?> Consultas {get;private set;}
     public Cro Cro{get;private set;}
     public Email Email{get;private set;}
     public Telefone Telefone{get;private set;}
@@ -22,5 +24,6 @@ public class Dentista
         this.Especialidade = especialidade;
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
+        this.Consultas = new List<Consulta?>();
     }
 }

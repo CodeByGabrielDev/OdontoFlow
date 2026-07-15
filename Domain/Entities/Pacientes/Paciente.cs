@@ -1,3 +1,4 @@
+using Domain.Entities.Agenda;
 using Domain.ValueObjects;
 
 namespace Domain.Entities.Pacientes;
@@ -6,6 +7,7 @@ public class Paciente
 {
     public Guid Id { get; private set; }
     public string Nome { get; private set; }
+    public List<Consulta?>Consultas{get;private set;}
     public Guid? ResponsavelId{get;private set;}
     public Responsavel? Responsavel{get;private set;}
     public Cpf Cpf { get; private set; }
@@ -28,6 +30,7 @@ public class Paciente
         this.DataNascimento = dataNascimento;
         this.Sexo = sexo;
         this.Endereco = endereco;
+        this.Consultas = new List<Consulta?>();
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
     }
