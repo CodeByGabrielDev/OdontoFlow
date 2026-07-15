@@ -15,8 +15,12 @@ public static class InfrastructureServiceExtensions
     {
         _serviceCollection.AddDbContext<OdontoFlowDbContext>(options => options.UseSqlServer(
                                                             _configuration.GetConnectionString("DefaultConnection")));
-        _serviceCollection.AddScoped<IPacienteRepository,PacienteRepository>();
-        _serviceCollection.AddScoped<IUnitOfWork,UnitOfWork>();
+        _serviceCollection.AddScoped<IPacienteRepository, PacienteRepository>();
+        _serviceCollection.AddScoped<IAnamneseRepository, AnamneseRepository>();
+        _serviceCollection.AddScoped<IAlergiaRepository, AlergiaRepository>();
+        _serviceCollection.AddScoped<IMedicamentoEmUsoRepository, MedicamentoEmUsoRepository>();
+        _serviceCollection.AddScoped<IDoencasSistemicasRepository, DoencasSistemicasRepository>();
+        _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         return _serviceCollection;
     }
 }

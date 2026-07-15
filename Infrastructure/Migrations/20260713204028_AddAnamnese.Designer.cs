@@ -4,6 +4,7 @@ using Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoFlowDbContext))]
-    partial class OdontoFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260713204028_AddAnamnese")]
+    partial class AddAnamnese
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,31 +25,23 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Pacientes.Alergias", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AnamneseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnamneseId");
-
-                    b.ToTable("Alergias", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Pacientes.Anamnese", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Alergias")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("DoencasSistemicas")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MedicamentoEmUso")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<Guid>("PacienteId")
                         .HasColumnType("uniqueidentifier");
@@ -60,46 +55,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Anamneses", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Pacientes.DoencasSistemicas", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AnamneseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnamneseId");
-
-                    b.ToTable("Doencas_sistemicas", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Pacientes.MedicamentoEmUso", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AnamneseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnamneseId");
-
-                    b.ToTable("medicamentos_em_uso", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Pacientes.Paciente", b =>
@@ -161,17 +116,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Responsavel", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Pacientes.Alergias", b =>
-                {
-                    b.HasOne("Domain.Entities.Pacientes.Anamnese", "Anamnese")
-                        .WithMany("Alergias")
-                        .HasForeignKey("AnamneseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anamnese");
-                });
-
             modelBuilder.Entity("Domain.Entities.Pacientes.Anamnese", b =>
                 {
                     b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
@@ -181,28 +125,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Pacientes.DoencasSistemicas", b =>
-                {
-                    b.HasOne("Domain.Entities.Pacientes.Anamnese", "Anamnese")
-                        .WithMany("DoencasSistemicas")
-                        .HasForeignKey("AnamneseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anamnese");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Pacientes.MedicamentoEmUso", b =>
-                {
-                    b.HasOne("Domain.Entities.Pacientes.Anamnese", "Anamnese")
-                        .WithMany("MedicamentoEmUso")
-                        .HasForeignKey("AnamneseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Anamnese");
                 });
 
             modelBuilder.Entity("Domain.Entities.Pacientes.Paciente", b =>
@@ -323,15 +245,6 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Telefone")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.Pacientes.Anamnese", b =>
-                {
-                    b.Navigation("Alergias");
-
-                    b.Navigation("DoencasSistemicas");
-
-                    b.Navigation("MedicamentoEmUso");
                 });
 
             modelBuilder.Entity("Domain.Entities.Pacientes.Responsavel", b =>
