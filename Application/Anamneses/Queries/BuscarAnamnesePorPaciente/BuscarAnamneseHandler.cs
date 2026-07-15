@@ -25,6 +25,32 @@ public class BuscarAnamneseHandler : IRequestHandler<BuscarAnamneseQuery, Anamne
         {
             throw new DomainException("Nao foi identificado Anamnese para esse usuario");
         }
-        return new AnamneseDto(anamneseFilter.Paciente.Nome, anamneseFilter.Alergias, anamneseFilter.MedicamentoEmUso, anamneseFilter.DoencasSistemicas);
+        AnamneseDto anamneseDto = new AnamneseDto(anamneseFilter.Paciente.Nome);
+        List<string>alergias = new List<string>();
+        List<string>medicamentosEmUso = new List<string>();
+        List<string>doencasSistemicas = new List<string>();
+        if (anamneseFilter.Alergias != null || anamneseFilter.Alergias.Count != 0)
+        {
+            foreach (Alergias alergias1 in anamneseFilter.Alergias)
+            {
+                alergias.Add(alergias1.Descricao);
+            }
+        }
+        if (anamneseFilter.DoencasSistemicas != null || anamneseFilter.DoencasSistemicas.Count != 0)
+        {
+            foreach (DoencasSistemicas doencasSistemicas1 in anamneseFilter.DoencasSistemicas)
+            {
+                doencasSistemicas.Add(doencasSistemicas1.Descricao);
+            }
+        }
+        if (anamneseFilter.MedicamentoEmUso != null || anamneseFilter.MedicamentoEmUso.Count != 0)
+        {
+            foreach(MedicamentoEmUso medicamentoEmUso in anamneseFilter.MedicamentoEmUso)
+            {
+                medicamentosEmUso.Add(medicamentoEmUso.Descricao);
+            }
+        }
+        anamneseDto.AtualizarCampos(alergias,medicamentosEmUso,doencasSistemicas);
+        return anamneseDto;
     }
 }

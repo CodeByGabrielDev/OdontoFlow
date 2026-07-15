@@ -33,13 +33,22 @@ public class CriarAnamneseHandler : IRequestHandler<CriarAnamneseCommand, Guid>
         {
             throw new DomainException("Ja existe uma anamnese criada para esse paciente");
         }
-        /*public Anamnese(Guid pacienteId,string? alergias,string? medicamentoEmUso,string? doencasSistemicas)*/
         Anamnese anamneseEntity = new Anamnese(criarAnamneseCommand.PacienteId);
-        anamneseEntity.insereCamposEValidaParametros(criarAnamneseCommand.Alergias, criarAnamneseCommand.MedicamentoEmUso, criarAnamneseCommand.DoencasSistemicas);
-
+        if (criarAnamneseCommand.Alergias.Count != 0)
+        {
+            anamneseEntity.insereInformacoesAlergias(criarAnamneseCommand.Alergias);
+        }
+         if (criarAnamneseCommand.DoencasSistemicas.Count != 0)
+        {
+           anamneseEntity.insereInformacoesDoencasSistemicas(criarAnamneseCommand.DoencasSistemicas);
+        }
+         if (criarAnamneseCommand.MedicamentoEmUso.Count != 0)
+        {
+           anamneseEntity.insereInformacoesMedicamentosEmUso(criarAnamneseCommand.MedicamentoEmUso);
+        }
+        
         await this._anamneseRepository.AddAsync(anamneseEntity);
         await this._unitOfWork.SaveChangesAsync();
-
         return anamneseEntity.Id;
     }
 }

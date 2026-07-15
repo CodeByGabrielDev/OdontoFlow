@@ -10,10 +10,6 @@ public class AnamneseConfiguration : IEntityTypeConfiguration<Anamnese>
     {
         builder.ToTable("Anamneses");
         builder.HasKey(a => a.Id);
-
-        builder.Property(a => a.Alergias).HasMaxLength(500);
-        builder.Property(a => a.MedicamentoEmUso).HasMaxLength(500);
-        builder.Property(a => a.DoencasSistemicas).HasMaxLength(500);
         builder.Property(a => a.PreenchidaEm).IsRequired();
 
         builder.HasOne(a => a.Paciente)

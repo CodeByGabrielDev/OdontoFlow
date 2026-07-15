@@ -29,5 +29,27 @@ public class Anamnese
     public string? MedicamentoEmUso{get;private set;}
     public string? DoencasSistemicas{get;private set;}*/
     
+    public void insereInformacoesAlergias(List<string?> itens)
+    {
+        foreach (string item in itens)
+        {
+            this.Alergias.Add(new Pacientes.Alergias(this.Id,item));
+        }
+    }
 
+    public void insereInformacoesMedicamentosEmUso(List<string?> itens)
+    {
+        foreach (string item in itens)
+        {
+            this.MedicamentoEmUso.Add(new Pacientes.MedicamentoEmUso(this.Id,item));
+        }
+    }
+
+    public void insereInformacoesDoencasSistemicas(List<string?> itens)
+    {
+        foreach (string item in itens)
+        {
+            this.DoencasSistemicas.Add(new Pacientes.DoencasSistemicas(this.Id,item));
+        }
+    }
 }
