@@ -10,9 +10,9 @@ namespace API.Controllers;
 [Route("api/consulta")]
 public class ConsultaController : ControllerBase
 {
-    private readonly Mediator _mediatr;
+    private readonly IMediator _mediatr;
 
-    public ConsultaController(Mediator _mediatr)
+    public ConsultaController(IMediator _mediatr)
     {
         this._mediatr = _mediatr;
     }

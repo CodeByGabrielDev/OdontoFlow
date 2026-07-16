@@ -28,12 +28,10 @@ public class BuscarDentistaPorIdHandler : IRequestHandler<BuscarDentistaPorIdQue
         }
         DentistaDto dentistaDto = new DentistaDto(dentista2.Nome, dentista2.Cro.Uf, dentista2.Cro.Numero, dentista2.Email.Valor,
                                                   dentista2.Telefone.Valor, dentista2.Especialidade, dentista2.Ativo);
-
         if (dentista2.Consultas.Count == 0)
         {
             return dentistaDto;
         }
-
         foreach (Consulta consulta in dentista2.Consultas)
         {
             dentistaDto.ConsultaDtos.Add(new ConsultaDto(consulta.Paciente.Nome, dentistaDto.Nome,
@@ -41,6 +39,5 @@ public class BuscarDentistaPorIdHandler : IRequestHandler<BuscarDentistaPorIdQue
                                                          consulta.StatusConsulta.ToString(), consulta.Observacao, consulta.CriadoEm));
         }
         return dentistaDto;
-
     }
 }

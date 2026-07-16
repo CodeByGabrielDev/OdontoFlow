@@ -7,11 +7,6 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class DentistaRepository : IDentistaRepository
 {
-    /*
-    Task AddAsync(Dentista dentista);
-    Task<Dentista> ObterDentistaPorIdAsync(Guid Id);
-
-    */
 
     private readonly OdontoFlowDbContext _odontoFlowDbContext;
 
@@ -32,5 +27,10 @@ public class DentistaRepository : IDentistaRepository
                          .Include(entidadeDentista => entidadeDentista.Consultas)
                             .ThenInclude(entidadeConsulta => entidadeConsulta.Paciente)
                         .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> ValidaExistenciaDeDentistaPorUfECro(string UfCro, string NumeroCro)
+    {
+        return await this._odontoFlowDbContext.Dentistas.Where(entidadeDentista => entidadeDentista.Cro.Uf == UfCro && entidadeDentista.Cro.Numero == NumeroCro).AnyAsync();
     }
 }
