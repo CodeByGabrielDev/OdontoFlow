@@ -10,4 +10,6 @@ public interface IConsultaRepository
     Task AddAsync(Consulta consulta);
     Task UpdateAsync(Consulta consulta);
 
+    
+
 }

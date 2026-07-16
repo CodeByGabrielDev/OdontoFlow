@@ -1,6 +1,7 @@
 using Domain.Entities.Pacientes;
 using Domain.Entities.Funcionarios;
 using Domain.Enums;
+using Domain.Exceptions;
 namespace Domain.Entities.Agenda;
 
 public class Consulta
@@ -29,4 +30,48 @@ public class Consulta
         this.Observacao = observacao;
         this.CriadoEm = DateTime.UtcNow;
     }
+
+
+    public void CancelarConsulta()
+    {
+        if (this.StatusConsulta == StatusConsulta.Concluido)
+            throw new DomainException("Consulta já concluída não pode ser cancelada.");
+        this.StatusConsulta = StatusConsulta.Cancelado;
+    }
+
+    public void ConfirmarConsulta()
+    {
+        if (this.StatusConsulta != StatusConsulta.Agendado)
+            throw new DomainException("Consulta só pode ser confirmada se estiver Agendada.");
+        this.StatusConsulta = StatusConsulta.Confirmado;
+    }
+
+    public void EmAtendimentoConsulta()
+    {
+        if (this.StatusConsulta != StatusConsulta.Confirmado)
+            throw new DomainException("Consulta só pode ser iniciada se estiver Confirmada.");
+        this.StatusConsulta = StatusConsulta.EmAtendimento;
+    }
+
+    public void ConcluirConsulta()
+    {
+        if (this.StatusConsulta != StatusConsulta.EmAtendimento)
+            throw new DomainException("Consulta só pode ser concluída se estiver Em Atendimento.");
+        this.StatusConsulta = StatusConsulta.Concluido;
+    }
+
+    public void FaltaConsulta()
+    {
+        if (this.StatusConsulta != StatusConsulta.Agendado &&
+            this.StatusConsulta != StatusConsulta.Confirmado)
+            throw new DomainException("Falta só pode ser registrada em consultas Agendadas ou Confirmadas.");
+        this.StatusConsulta = StatusConsulta.Falta;
+    }
+
+
+    public void AtualizarPacienteId(Guid IdPaciente)
+    {
+        this.PacienteId = IdPaciente;
+    }
+
 }

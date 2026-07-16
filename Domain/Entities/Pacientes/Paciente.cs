@@ -7,9 +7,10 @@ public class Paciente
 {
     public Guid Id { get; private set; }
     public string Nome { get; private set; }
-    public List<Consulta?>Consultas{get;private set;}
-    public Guid? ResponsavelId{get;private set;}
-    public Responsavel? Responsavel{get;private set;}
+    public List<Consulta?> Consultas { get; private set; }
+    public List<ListaEspera?> ListaEsperas { get; private set; }
+    public Guid? ResponsavelId { get; private set; }
+    public Responsavel? Responsavel { get; private set; }
     public Cpf Cpf { get; private set; }
     public Email Email { get; private set; }
     public Telefone Telefone { get; private set; }
@@ -18,7 +19,7 @@ public class Paciente
     public string Endereco { get; private set; }
     public bool Ativo { get; private set; }
     public DateTime CriadoEm { get; private set; }
-    private Paciente(){ }
+    private Paciente() { }
     public Paciente(string nome, Cpf cpf, Email email, Telefone telefone,
                     DateTime dataNascimento, string sexo, string endereco)
     {
@@ -31,11 +32,12 @@ public class Paciente
         this.Sexo = sexo;
         this.Endereco = endereco;
         this.Consultas = new List<Consulta?>();
+        this.ListaEsperas = new List<ListaEspera?>();
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
     }
     public void AtualizarDados(string? nome,
-    string? email,string? telefone,
+    string? email, string? telefone,
     string? sexo, string? endereco)
     {
         if (!string.IsNullOrWhiteSpace(nome))
@@ -61,5 +63,5 @@ public class Paciente
             this.Endereco = endereco;
         }
     }
-   
+
 }
