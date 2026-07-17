@@ -29,9 +29,9 @@ public class CancelarConsultaHandler : IRequestHandler<CancelarConsultaCommand, 
             throw new DomainException("Consulta nao encontrada na base de dados");
         }
         consulta.CancelarConsulta();
-        List<ListaEspera> listaEspera = await this._listaDeEsperaRepository.BuscarListaDeEsperaDentistaNaoAtendidos(consulta.DentistaId);   
+        List<Domain.Entities.Agenda.ListaEspera> listaEspera = await this._listaDeEsperaRepository.BuscarListaDeEsperaDentistaNaoAtendidos(consulta.DentistaId);   
         int counter = 1;
-        foreach (ListaEspera lista in listaEspera)
+        foreach (Domain.Entities.Agenda.ListaEspera lista in listaEspera)
         {
             if (counter > 1)
             {
