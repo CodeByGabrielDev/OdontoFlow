@@ -3,7 +3,7 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Agenda.Consultas.Commands.AtualizarConsulta;
+namespace Application.Agenda.Consultas.Commands.CancelarConsulta;
 
 
 
@@ -29,7 +29,7 @@ public class CancelarConsultaHandler : IRequestHandler<CancelarConsultaCommand, 
             throw new DomainException("Consulta nao encontrada na base de dados");
         }
         consulta.CancelarConsulta();
-        List<ListaEspera> listaEspera = await this._listaDeEsperaRepository.BuscarListaDeEsperaDentista(consulta.DentistaId);   
+        List<ListaEspera> listaEspera = await this._listaDeEsperaRepository.BuscarListaDeEsperaDentistaNaoAtendidos(consulta.DentistaId);   
         int counter = 1;
         foreach (ListaEspera lista in listaEspera)
         {
