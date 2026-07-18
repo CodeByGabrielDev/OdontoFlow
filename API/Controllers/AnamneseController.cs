@@ -2,11 +2,13 @@ using Application.Anamneses.Commands.CriarAnamnese;
 using Application.Anamneses.DTOs;
 using Application.Anamneses.Queries.BuscarAnamnesePorPaciente;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/anamnese")]
 public class AnamneseController:ControllerBase
 {

@@ -3,11 +3,13 @@ using Application.Funcionarios.Dentista.DTOs;
 using Application.Funcionarios.Dentista.Queries;
 using Domain.Entities.Funcionarios;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/dentista")]
 public class DentistaController : ControllerBase
 {

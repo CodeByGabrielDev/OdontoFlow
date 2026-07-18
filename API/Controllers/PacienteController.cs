@@ -4,11 +4,13 @@ using Application.Pacientes.DTOs;
 using Application.Pacientes.Queries.ListarPacientes;
 using Application.Pacientes.Queries.ObterPacientePorId;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/pacientes")]
 public class PacienteController:ControllerBase
 {

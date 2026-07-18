@@ -5,11 +5,13 @@ using Application.Consultas.BuscarConsulta;
 using Application.Consultas.CriarConsulta;
 using Application.Consultas.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/consulta")]
 public class ConsultaController : ControllerBase
 {
