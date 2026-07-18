@@ -14,18 +14,21 @@ public class OdontoFlowDbContext : DbContext
     public OdontoFlowDbContext(DbContextOptions<OdontoFlowDbContext> options) : base(options) { }
 
     public DbSet<Paciente> Pacientes => this.Set<Paciente>();
-   
+
     public DbSet<Responsavel> Responsaveis => this.Set<Responsavel>();
-     
+
     public DbSet<Anamnese> Anamneses => this.Set<Anamnese>();
     public DbSet<Alergias> Alergias => this.Set<Alergias>();
     public DbSet<DoencasSistemicas> DoencasSistemicas => this.Set<DoencasSistemicas>();
     public DbSet<MedicamentoEmUso> MedicamentoEmUso => this.Set<MedicamentoEmUso>();
+    public DbSet<Dentista> Dentistas => this.Set<Dentista>();
+    public DbSet<Consulta> Consultas => this.Set<Consulta>();
+    public DbSet<ListaEspera> ListasEspera => this.Set<ListaEspera>();
+    public DbSet<Usuario> Usuarios => this.Set<Usuario>();
 
     /*
-    public DbSet<Consulta> Consultas => this.Set<Consulta>();
+    
     public DbSet<GradeHorario> GradesHorario => this.Set<GradeHorario>();
-    public DbSet<ListaEspera> ListasEspera => this.Set<ListaEspera>();
     public DbSet<Prontuario> Prontuarios => this.Set<Prontuario>();
     public DbSet<Odontograma> Odontogramas => this.Set<Odontograma>();
     public DbSet<Dente> Dentes => this.Set<Dente>();

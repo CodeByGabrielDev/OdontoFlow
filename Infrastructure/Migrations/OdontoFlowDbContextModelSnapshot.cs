@@ -22,6 +22,130 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Agenda.Consulta", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DentistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeSpan>("HoraFim")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Observacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StatusConsulta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentistaId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("Consultas", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Agenda.ListaEspera", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Atendido")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DataSolicitacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DentistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Observacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentistaId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("Lista_de_espera", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Especialidade")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dentistas", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Usuario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Perfil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenhaHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("usuarios", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Pacientes.Alergias", b =>
                 {
                     b.Property<Guid>("Id")
@@ -161,6 +285,139 @@ namespace Infrastructure.Migrations
                     b.ToTable("Responsavel", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Agenda.Consulta", b =>
+                {
+                    b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
+                        .WithMany("Consultas")
+                        .HasForeignKey("DentistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany("Consultas")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Agenda.ListaEspera", b =>
+                {
+                    b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
+                        .WithMany("ListaEsperas")
+                        .HasForeignKey("DentistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany("ListaEsperas")
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
+                {
+                    b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("DentistaId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("email");
+
+                            b1.HasKey("DentistaId");
+
+                            b1.ToTable("Dentistas");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DentistaId");
+                        });
+
+                    b.OwnsOne("Domain.ValueObjects.Telefone", "Telefone", b1 =>
+                        {
+                            b1.Property<Guid>("DentistaId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("DentistaId");
+
+                            b1.ToTable("Dentistas");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DentistaId");
+                        });
+
+                    b.OwnsOne("Domain.ValueObjects.Cro", "Cro", b1 =>
+                        {
+                            b1.Property<Guid>("DentistaId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Numero")
+                                .IsRequired()
+                                .HasMaxLength(10)
+                                .HasColumnType("nvarchar(10)")
+                                .HasColumnName("NumeroCro");
+
+                            b1.Property<string>("Uf")
+                                .IsRequired()
+                                .HasMaxLength(2)
+                                .HasColumnType("nvarchar(2)")
+                                .HasColumnName("UfCro");
+
+                            b1.HasKey("DentistaId");
+
+                            b1.ToTable("Dentistas");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DentistaId");
+                        });
+
+                    b.Navigation("Cro")
+                        .IsRequired();
+
+                    b.Navigation("Email")
+                        .IsRequired();
+
+                    b.Navigation("Telefone")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Usuario", b =>
+                {
+                    b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("UsuarioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("UsuarioId");
+
+                            b1.ToTable("usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UsuarioId");
+                        });
+
+                    b.Navigation("Email")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.Pacientes.Alergias", b =>
                 {
                     b.HasOne("Domain.Entities.Pacientes.Anamnese", "Anamnese")
@@ -233,15 +490,14 @@ namespace Infrastructure.Migrations
                                 .HasForeignKey("PacienteId");
                         });
 
-                    b.OwnsOne("Domain.ValueObjects.Telefone", "Telefone", b1 =>
+                    b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("PacienteId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Valor")
                                 .IsRequired()
-                                .HasMaxLength(11)
-                                .HasColumnType("nvarchar(11)");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("PacienteId");
 
@@ -251,14 +507,15 @@ namespace Infrastructure.Migrations
                                 .HasForeignKey("PacienteId");
                         });
 
-                    b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
+                    b.OwnsOne("Domain.ValueObjects.Telefone", "Telefone", b1 =>
                         {
                             b1.Property<Guid>("PacienteId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Valor")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .HasMaxLength(11)
+                                .HasColumnType("nvarchar(11)");
 
                             b1.HasKey("PacienteId");
 
@@ -325,6 +582,13 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
+                {
+                    b.Navigation("Consultas");
+
+                    b.Navigation("ListaEsperas");
+                });
+
             modelBuilder.Entity("Domain.Entities.Pacientes.Anamnese", b =>
                 {
                     b.Navigation("Alergias");
@@ -332,6 +596,13 @@ namespace Infrastructure.Migrations
                     b.Navigation("DoencasSistemicas");
 
                     b.Navigation("MedicamentoEmUso");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pacientes.Paciente", b =>
+                {
+                    b.Navigation("Consultas");
+
+                    b.Navigation("ListaEsperas");
                 });
 
             modelBuilder.Entity("Domain.Entities.Pacientes.Responsavel", b =>
