@@ -20,6 +20,6 @@ public class ObterGradeHorarioPorIdHandler : IRequestHandler<ObterGradeHorarioPo
         {
             throw new DomainException("Grade horario inexistnete na base de dados");
         }
-        return new GradeHorarioDto(gradeHorario.Id,gradeHorario.DiaSemana,gradeHorario.HoraInicio,gradeHorario.HoraFim,gradeHorario.Ativo);
+        return new GradeHorarioDto(gradeHorario.Id, gradeHorario.DiaSemana.ToString(), gradeHorario.HoraInicio, gradeHorario.HoraFim, gradeHorario.Ativo);
     }
 }

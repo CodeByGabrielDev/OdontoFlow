@@ -27,6 +27,7 @@ public static class InfrastructureServiceExtensions
         _serviceCollection.AddScoped<IUsuarioRepository, UsuarioRepository>();
         _serviceCollection.AddScoped<IJwtService, JwtService>();
         _serviceCollection.AddScoped<IPasswordHasher, PasswordHasher>();
+        _serviceCollection.AddScoped<IGradeHorarioRepository,GradeHorarioRepository>();
         _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         return _serviceCollection;
     }
