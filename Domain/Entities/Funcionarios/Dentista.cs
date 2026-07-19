@@ -8,6 +8,7 @@ public class Dentista
     public string Nome { get; private set; }
     public List<Consulta?> Consultas { get; private set; }
     public List<ListaEspera> ListaEsperas { get; private set; }
+    public List<GradeHorario> GradeHorarios { get; private set; }
     public Cro Cro { get; private set; }
     public Email Email { get; private set; }
     public Telefone Telefone { get; private set; }
@@ -27,5 +28,6 @@ public class Dentista
         this.CriadoEm = DateTime.UtcNow;
         this.Consultas = new List<Consulta?>();
         this.ListaEsperas = new List<ListaEspera>();
+        this.GradeHorarios = new List<GradeHorario>();
     }
 }
