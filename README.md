@@ -90,14 +90,23 @@ OdontoFlow/
 - Exportação de dados do paciente sob demanda (portabilidade)
 
 ## Status do projeto
-
 🚧 Em desenvolvimento
 
 - [x] Arquitetura e estrutura de pastas
 - [x] Domain — entidades, value objects, enums, interfaces
-- [ ] Application — commands, queries, handlers
-- [ ] Infrastructure — repositórios, EF Core, migrations
-- [ ] API — controllers, middleware, autenticação
+- [x] Application — Pacientes, Anamnese, Agenda, Dentista, Usuário
+- [x] Infrastructure — repositórios, EF Core, migrations, JWT, BCrypt
+- [x] API — controllers, Swagger com JWT, autenticação completa
+- [x] Módulo Pacientes — CRUD completo
+- [x] Módulo Anamnese — com entidades separadas (Alergias, Medicamentos, Doenças)
+- [x] Módulo Agenda — Consultas, Grade Horário, Lista de Espera
+- [x] Autenticação — JWT com registro, login e rotas protegidas
+- [ ] Módulo Prontuário
+- [ ] Módulo Financeiro
+- [ ] Módulo Convênios
+- [ ] Módulo Estoque
+- [ ] Exception Middleware global
+- [ ] Testes automatizados
 
 ## Como executar
 
