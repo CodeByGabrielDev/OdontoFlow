@@ -14,9 +14,9 @@ public class GradeHorarioConfiguration : IEntityTypeConfiguration<GradeHorario>
                .WithMany(entidadeDentista => entidadeDentista.GradeHorarios)
                .HasForeignKey(entidadeGrade => entidadeGrade.DentistaId)
                .IsRequired();
-        builder.Property(entidadeGrade=>entidadeGrade.DiaSemana).IsRequired().HasColumnName("dia_semana");
-        builder.Property(entidadeGrade=>entidadeGrade.HoraInicio).IsRequired().HasColumnName("hora_inicio");
-        builder.Property(entidadeGrade=>entidadeGrade.HoraFim).IsRequired().HasColumnName("hora_fim");
-        builder.Property(entidadeGrade=>entidadeGrade.Ativo);
+        builder.Property(entidadeGrade => entidadeGrade.DiaSemana).HasConversion<string>().IsRequired();
+        builder.Property(entidadeGrade => entidadeGrade.HoraInicio).IsRequired().HasColumnName("hora_inicio");
+        builder.Property(entidadeGrade => entidadeGrade.HoraFim).IsRequired().HasColumnName("hora_fim");
+        builder.Property(entidadeGrade => entidadeGrade.Ativo);
     }
 }

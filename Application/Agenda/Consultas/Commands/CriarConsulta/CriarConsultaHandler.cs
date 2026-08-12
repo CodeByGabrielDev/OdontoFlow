@@ -15,13 +15,15 @@ public class CriarConsultaHandler : IRequestHandler<CriarConsultaCommand, Guid>
     private readonly IPacienteRepository _pacienteRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDentistaRepository _dentistaRepository;
+    private readonly IGradeHorarioRepository _gradeHorarioRepository;
 
-    public CriarConsultaHandler(IConsultaRepository _consultaRepository, IPacienteRepository _pacienteRepository, IUnitOfWork _unitOfWork, IDentistaRepository _dentistaRepository)
+    public CriarConsultaHandler(IGradeHorarioRepository _gradeHorarioRepository, IConsultaRepository _consultaRepository, IPacienteRepository _pacienteRepository, IUnitOfWork _unitOfWork, IDentistaRepository _dentistaRepository)
     {
         this._consultaRepository = _consultaRepository;
         this._pacienteRepository = _pacienteRepository;
         this._unitOfWork = _unitOfWork;
         this._dentistaRepository = _dentistaRepository;
+        this._gradeHorarioRepository = _gradeHorarioRepository;
     }
 
     public async Task<Guid> Handle(CriarConsultaCommand criarConsultaCommand, CancellationToken cancellationToken)
@@ -51,11 +53,17 @@ public class CriarConsultaHandler : IRequestHandler<CriarConsultaCommand, Guid>
         {
             throw new DomainException("Horario indisponivel para esse dentista, validar outro horario para o mesmo dentista");
         }
+        bool disponibilidade = await this._gradeHorarioRepository.VerificarDisponibilidadeNaGrade(dentista.Id, criarConsultaCommand.DiaSemana, criarConsultaCommand.HoraInicio, criarConsultaCommand.HoraFim);
+
+        if (!disponibilidade)
+        {
+            throw new DomainException("encontrado conflito de agenda, horario ou dia indisponivel");
+        }
 
         Consulta consulta = new Consulta(paciente.Id, dentista.Id, criarConsultaCommand.Data, criarConsultaCommand.HoraInicio,
                                          criarConsultaCommand.HoraFim, criarConsultaCommand.Observacao);
         await this._consultaRepository.AddAsync(consulta);
         await this._unitOfWork.SaveChangesAsync();
-        return consulta.Id; 
+        return consulta.Id;
     }
 }
