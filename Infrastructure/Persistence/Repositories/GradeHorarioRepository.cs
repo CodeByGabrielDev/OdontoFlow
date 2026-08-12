@@ -30,11 +30,20 @@ public class GradeHorarioRepository : IGradeHorarioRepository
                          .Include(entidadeDentista => entidadeDentista.Dentista)
                          .ToListAsync();
     }
-    public async Task<bool> VerificarConflitanciaNaAgenda(DayOfWeek diaSemana, Guid DentistaId)
+    public async Task<bool> VerificarConflitanciaNaAgenda(string diaSemana, Guid DentistaId)
     {
         return await this._odontoFlowDbContext.GradesHorario
                          .Where(entidadeGrade => entidadeGrade.DentistaId == DentistaId
-                                                 && entidadeGrade.DiaSemana == diaSemana)
+                         && entidadeGrade.DiaSemana.ToString() == diaSemana)
                          .AnyAsync();
+    }
+
+    public async Task<bool> VerificarDisponibilidadeNaGrade(Guid IdDentista, string dayOfWeek, TimeSpan dataInicio, TimeSpan dataFim)
+    { //retorna true quando existe uma grade ativa que cobre o horario pedido, ou seja, esta disponivel
+        return await this._odontoFlowDbContext.GradesHorario
+                .Where(entidadeGrade => entidadeGrade.DentistaId == IdDentista
+                && entidadeGrade.Ativo == true && entidadeGrade.DiaSemana.ToString() == dayOfWeek
+                && dataInicio >= entidadeGrade.HoraInicio && dataFim <= entidadeGrade.HoraFim)
+                .AnyAsync();
     }
 }

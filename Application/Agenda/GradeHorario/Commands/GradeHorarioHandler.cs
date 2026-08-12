@@ -26,7 +26,7 @@ public class GradeHorarioHandler : IRequestHandler<GradeHorarioCommand, Guid>
         {
             throw new DomainException("Dentista não encontrado na base de dados");
         }
-        if (await this._gradeHorarioRepository.VerificarConflitanciaNaAgenda(gradeHorarioCommand.DiaSemana, gradeHorarioCommand.IdDentista))
+        if (await this._gradeHorarioRepository.VerificarConflitanciaNaAgenda(gradeHorarioCommand.DiaSemana.ToString(), gradeHorarioCommand.IdDentista))
         {
             throw new DomainException("Conflito na agenda.");
         }
