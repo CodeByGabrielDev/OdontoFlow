@@ -44,4 +44,10 @@ public class PacienteRepository : IPacienteRepository
         }
         return await query.ToListAsync();
     }
+
+
+    public async Task<Paciente?> ObterPacientePorCpf(string? cpf)
+    {
+        return await this._odontoFlowDbContext.Pacientes.FirstOrDefaultAsync(entidadePaciente =>entidadePaciente.Cpf.Valor.Equals(cpf));
+    }
 }

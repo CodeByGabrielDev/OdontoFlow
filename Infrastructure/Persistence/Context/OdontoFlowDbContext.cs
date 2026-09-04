@@ -26,7 +26,7 @@ public class OdontoFlowDbContext : DbContext
     public DbSet<ListaEspera> ListasEspera => this.Set<ListaEspera>();
     public DbSet<Usuario> Usuarios => this.Set<Usuario>();
     public DbSet<GradeHorario> GradesHorario => this.Set<GradeHorario>();
-
+    public DbSet<Prontuario> Prontuarios => this.Set<Prontuario>();
 
     /*
     

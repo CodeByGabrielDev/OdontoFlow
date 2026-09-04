@@ -1,12 +1,14 @@
 using Domain.Entities.Agenda;
 using Domain.ValueObjects;
-
+using Domain.Entities.Prontuario;
 namespace Domain.Entities.Pacientes;
 
 public class Paciente
 {
     public Guid Id { get; private set; }
     public string Nome { get; private set; }
+
+    public List<Domain.Entities.Prontuario.Prontuario> Prontuarios{get;private set;}
     public List<Consulta?> Consultas { get; private set; }
     public List<ListaEspera?> ListaEsperas { get; private set; }
     public Guid? ResponsavelId { get; private set; }
@@ -33,6 +35,7 @@ public class Paciente
         this.Endereco = endereco;
         this.Consultas = new List<Consulta?>();
         this.ListaEsperas = new List<ListaEspera?>();
+        this.Prontuarios = new List<Prontuario.Prontuario>();
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
     }
