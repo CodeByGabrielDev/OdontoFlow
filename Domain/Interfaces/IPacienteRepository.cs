@@ -7,5 +7,6 @@ public interface IPacienteRepository
     Task AddAsync(Paciente paciente);
     Task Update(Paciente paciente);
     Task<IEnumerable<Paciente>> ListarPacientesFiltradosAsync(string? cpf, string? nome);
+    Task<Paciente?> ObterPacientePorCpf(string? cpf);
     
 }
