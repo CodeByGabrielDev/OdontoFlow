@@ -2,6 +2,7 @@ using Domain.Entities.Pacientes;
 using Domain.Entities.Funcionarios;
 using Domain.Enums;
 using Domain.Exceptions;
+using Domain.Entities.Prontuario;
 namespace Domain.Entities.Agenda;
 
 public class Consulta
@@ -15,6 +16,7 @@ public class Consulta
     public TimeSpan HoraInicio { get; private set; }
     public TimeSpan HoraFim { get; private set; }
     public StatusConsulta StatusConsulta { get; private set; }
+    public List<EvolucaoClinica> evolucaoClinicas{get;private set;}
     public string? Observacao { get; private set; }
     public DateTime CriadoEm { get; private set; }
     private Consulta() { }
@@ -29,6 +31,7 @@ public class Consulta
         this.StatusConsulta = StatusConsulta.Agendado;
         this.Observacao = observacao;
         this.CriadoEm = DateTime.UtcNow;
+        this.evolucaoClinicas = new List<EvolucaoClinica>();
     }
 
 

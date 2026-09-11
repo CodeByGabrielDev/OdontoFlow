@@ -31,4 +31,10 @@ public class ProntuarioRepository : IProntuarioRepository
     }
 
 
+    public async Task<List<Prontuario?>> ObterTodos()
+    {
+        return await this.odontoFlowDbContext.Prontuarios.ToListAsync();
+    }
+
+
 }

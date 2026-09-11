@@ -1,3 +1,4 @@
+using Application.Prontuarios.Command.ProntuarioCommand;
 using FluentValidation;
 
 namespace Application.Prontuarios.Command;

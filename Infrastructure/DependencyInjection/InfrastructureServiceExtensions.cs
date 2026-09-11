@@ -29,6 +29,7 @@ public static class InfrastructureServiceExtensions
         _serviceCollection.AddScoped<IPasswordHasher, PasswordHasher>();
         _serviceCollection.AddScoped<IGradeHorarioRepository,GradeHorarioRepository>();
         _serviceCollection.AddScoped<IProntuarioRepository,ProntuarioRepository>();
+        _serviceCollection.AddScoped<IEvolucaoClinicaRepository,EvolucaoClinicaRepository>();
         _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         return _serviceCollection;
     }
