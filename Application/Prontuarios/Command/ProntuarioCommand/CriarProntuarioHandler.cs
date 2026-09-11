@@ -1,3 +1,4 @@
+using Application.Prontuarios.Command.ProntuarioCommand;
 using Application.Prontuarios.DTOs;
 using Domain.Entities.Pacientes;
 using Domain.Entities.Prontuario;

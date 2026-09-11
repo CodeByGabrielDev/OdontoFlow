@@ -1,3 +1,4 @@
+using Application.Prontuarios.Command.EvolucaoClinicaCommand;
 using Application.Prontuarios.DTOs;
 using Application.Prontuarios.Queries.ObterProntuarioPorId;
 using MediatR;
@@ -21,5 +22,12 @@ public class ProntuarioController : ControllerBase
     {
         ProntuarioDto prontuarioDto = await this._mediator.Send(new ObterProntuarioPorIdQuery(idProntuario));
         return Ok(prontuarioDto);
+    }
+
+    [HttpPost("/evolucaoClinicaApi")]
+    public async Task<IActionResult> AdicionarEvolucaoClinica([FromBody] EvolucaoClinicaCommand evolucaoClinicaCommand)
+    {
+        Guid Id = await this._mediator.Send(evolucaoClinicaCommand);
+        return Ok(Id);
     }
 }

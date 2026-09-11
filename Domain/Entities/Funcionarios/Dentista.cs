@@ -1,4 +1,5 @@
 using Domain.Entities.Agenda;
+using Domain.Entities.Prontuario;
 using Domain.ValueObjects;
 namespace Domain.Entities.Funcionarios;
 
@@ -9,6 +10,7 @@ public class Dentista
     public List<Consulta?> Consultas { get; private set; }
     public List<ListaEspera> ListaEsperas { get; private set; }
     public List<GradeHorario> GradeHorarios { get; private set; }
+    public List<EvolucaoClinica> EvolucaoClinicas{get;private set;}
     public Cro Cro { get; private set; }
     public Email Email { get; private set; }
     public Telefone Telefone { get; private set; }
@@ -29,5 +31,6 @@ public class Dentista
         this.Consultas = new List<Consulta?>();
         this.ListaEsperas = new List<ListaEspera>();
         this.GradeHorarios = new List<GradeHorario>();
+        this.EvolucaoClinicas = new List<EvolucaoClinica>();
     }
 }
