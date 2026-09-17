@@ -35,8 +35,12 @@ public class CriarProntuarioHandler : IRequestHandler<CriarProntuarioCommand, Pr
         {
             throw new DomainException("Prontuario de usuario ja existente.");
         }
-        await this._prontuarioRepository.AddAsync(new Prontuario(paciente.Id));
+        Prontuario prontuario = new Prontuario(paciente.Id);
+        await this._prontuarioRepository.AddAsync(prontuario);
         await this._unitOfWork.SaveChangesAsync();
+        Odontograma odontograma = new Odontograma(prontuario.Id);
+        List<Dente> dentes = new List<Dente>();
+        
         return new ProntuarioDto(paciente.Nome);
     }
 }

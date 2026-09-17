@@ -19,4 +19,6 @@ public class Dente
         this.Tipo = tipo;
         this.StatusFaces = new List<FaceDental>();
     }
+
+    
 }

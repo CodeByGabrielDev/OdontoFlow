@@ -8,6 +8,7 @@ public class Prontuario
     public Guid PacienteId{get;private set;}
     public Paciente Paciente{get;private set;}
     public DateTime CriadoEm{get;private set;}
+    public Odontograma Odontograma{get;private set;}
     public List<EvolucaoClinica> EvolucaoClinicas{get;private set;}
     private Prontuario(){ }
 
