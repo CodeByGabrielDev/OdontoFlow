@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Application.DependencyInjection;
 using Infrastructure.DependencyInjection;
@@ -32,7 +33,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!)),
             ValidateIssuer = false,
-            ValidateAudience = false
+            ValidateAudience = false,
+            RoleClaimType = ClaimTypes.Role
         };
     });
 
