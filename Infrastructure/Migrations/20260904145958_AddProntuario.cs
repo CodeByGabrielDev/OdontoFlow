@@ -49,13 +49,13 @@ namespace Infrastructure.Migrations
                         column: x => x.ConsultaId,
                         principalTable: "Consultas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_EvolucaoClinica_Dentistas_DentistaId",
                         column: x => x.DentistaId,
                         principalTable: "Dentistas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_EvolucaoClinica_Prontuario_ProntuarioId",
                         column: x => x.ProntuarioId,

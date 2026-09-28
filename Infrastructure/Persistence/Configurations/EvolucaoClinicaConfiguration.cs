@@ -27,11 +27,13 @@ public class EvolucaoClinicaConfiguration : IEntityTypeConfiguration<EvolucaoCli
         builder.HasOne(entidadeEvolucaoClinica=>entidadeEvolucaoClinica.Dentista)
                .WithMany(entidadeDentista=>entidadeDentista.EvolucaoClinicas)
                .HasForeignKey(entidadeEvolucaoCLinica=>entidadeEvolucaoCLinica.DentistaId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
         builder.HasOne(entidadeEvolucaoClinica=>entidadeEvolucaoClinica.Consulta)
                .WithMany(entidadeConsulta=>entidadeConsulta.evolucaoClinicas)
                .HasForeignKey(entidadeEvolucaoClinica=>entidadeEvolucaoClinica.ConsultaId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
         builder.Property(entidadeEvolucaoClinica=>entidadeEvolucaoClinica.Descricao);
         builder.Property(entidadeEvolucaoClinica=>entidadeEvolucaoClinica.CriadoEm).HasColumnName("Criado_em");
         

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OdontoFlowDbContext))]
-    [Migration("20260928215217_FinalizaBackend")]
+    [Migration("20260928221134_FinalizaBackend")]
     partial class FinalizaBackend
     {
         /// <inheritdoc />
@@ -897,7 +897,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Financeiro.Orcamento", "Orcamento")
                         .WithMany()
                         .HasForeignKey("OrcamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
@@ -1289,13 +1289,13 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Agenda.Consulta", "Consulta")
                         .WithMany("evolucaoClinicas")
                         .HasForeignKey("ConsultaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
                         .WithMany("EvolucaoClinicas")
                         .HasForeignKey("DentistaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Prontuario.Prontuario", "Prontuario")
