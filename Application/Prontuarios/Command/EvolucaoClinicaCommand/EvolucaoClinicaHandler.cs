@@ -6,9 +6,9 @@ using Domain.Exceptions;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Prontuarios.Command.ProntuarioCommand;
+namespace Application.Prontuarios.Command.EvolucaoClinicaCommand;
 
-public class EvolucaoClinicaHandler : IRequestHandler<EvolucaoClinicaCommand.EvolucaoClinicaCommand, Guid>
+public class EvolucaoClinicaHandler : IRequestHandler<EvolucaoClinicaCommand, Guid>
 {
 
     private readonly IEvolucaoClinicaRepository _evolucaoClinicaRepository;
@@ -26,9 +26,9 @@ public class EvolucaoClinicaHandler : IRequestHandler<EvolucaoClinicaCommand.Evo
     }
 
 
-    public async Task<Guid> Handle(EvolucaoClinicaCommand.EvolucaoClinicaCommand evolucaoClinicaCommand, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(EvolucaoClinicaCommand evolucaoClinicaCommand, CancellationToken cancellationToken)
     {
-        
+
         Dentista? dentista = await this._dentistaRepository.ObterDentistaPorIdAsync(evolucaoClinicaCommand.DentistaId);
         Prontuario? prontuario = await this._prontuarioRepository.ObterPorIdAsync(evolucaoClinicaCommand.ProntuarioId);
         Consulta? consulta = await this._consultaRepository.ObterPorIdAsync(evolucaoClinicaCommand.ConsultaId);
@@ -36,7 +36,7 @@ public class EvolucaoClinicaHandler : IRequestHandler<EvolucaoClinicaCommand.Evo
         if (prontuario == null)throw new DomainException("Prontuario nao encontrado na base de dados");
         if (consulta == null)throw new DomainException("Consulta nao encontrada na base de dados");
         if(consulta.StatusConsulta != Domain.Enums.StatusConsulta.EmAtendimento) throw new DomainException("Só é possivel realizar criacao de evolucao em uma consulta em andamento");
-        EvolucaoClinica evolucaoClinica = new EvolucaoClinica(evolucaoClinicaCommand.ProntuarioId,evolucaoClinicaCommand.DentistaId,evolucaoClinicaCommand.ConsultaId,evolucaoClinicaCommand.Descricao ?? null);
+        EvolucaoClinica evolucaoClinica = new EvolucaoClinica(evolucaoClinicaCommand.ProntuarioId,evolucaoClinicaCommand.DentistaId,evolucaoClinicaCommand.ConsultaId,evolucaoClinicaCommand.Descricao);
         await this._evolucaoClinicaRepository.AddAsync(evolucaoClinica);
         await this._unitOfWork.SaveChangesAsync();
         return evolucaoClinica.Id;

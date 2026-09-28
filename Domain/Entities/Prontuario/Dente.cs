@@ -18,5 +18,17 @@ public class Dente
         this.Numero =numero;
         this.Tipo = tipo;
         this.StatusFaces = new List<FaceDental>();
+        AlimentarValueObject();
     }
+    private void AlimentarValueObject()
+    {
+        
+        this.StatusFaces.Add(new FaceDental("Mesial", "Saudavel"));
+        this.StatusFaces.Add(new FaceDental("Distal", "Saudavel"));
+        this.StatusFaces.Add( new FaceDental("Vestibular", "Saudavel"));
+        this.StatusFaces.Add(new FaceDental("Lingual", "Saudavel"));
+        this.StatusFaces.Add(new FaceDental("Oclusal", "Saudavel"));
+    }
+
+    
 }

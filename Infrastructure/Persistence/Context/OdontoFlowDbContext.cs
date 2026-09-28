@@ -28,9 +28,6 @@ public class OdontoFlowDbContext : DbContext
     public DbSet<GradeHorario> GradesHorario => this.Set<GradeHorario>();
     public DbSet<Prontuario> Prontuarios => this.Set<Prontuario>();
     public DbSet<EvolucaoClinica> EvolucoesClinicas => this.Set<EvolucaoClinica>();
-
-    /*
-    
     public DbSet<Odontograma> Odontogramas => this.Set<Odontograma>();
     public DbSet<Dente> Dentes => this.Set<Dente>();
     public DbSet<PlanoTratamento> PlanosTratamento => this.Set<PlanoTratamento>();
@@ -44,9 +41,7 @@ public class OdontoFlowDbContext : DbContext
     public DbSet<GuiaAutorizacao> GuiasAutorizacao => this.Set<GuiaAutorizacao>();
     public DbSet<ItemEstoque> ItensEstoque => this.Set<ItemEstoque>();
     public DbSet<MovimentacaoEstoque> MovimentacoesEstoque => this.Set<MovimentacaoEstoque>();
-    public DbSet<Dentista> Dentistas => this.Set<Dentista>();
     public DbSet<Funcionario> Funcionarios => this.Set<Funcionario>();
-*/
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OdontoFlowDbContext).Assembly);

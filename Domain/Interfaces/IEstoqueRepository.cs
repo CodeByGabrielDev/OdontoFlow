@@ -5,6 +5,7 @@ namespace Domain.Interfaces;
 public interface IEstoqueRepository
 {
     Task<ItemEstoque?> ObterPorIdAsync(Guid id);
+    Task<IEnumerable<ItemEstoque>> ObterTodosAsync();
     Task<IEnumerable<ItemEstoque>> ObterAbaixoMinimoAsync();
     Task AddAsync(ItemEstoque item);
     Task UpdateAsync(ItemEstoque item);

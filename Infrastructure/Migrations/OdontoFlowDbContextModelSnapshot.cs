@@ -123,6 +123,291 @@ namespace Infrastructure.Migrations
                     b.ToTable("Lista_de_espera", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Convenios.Convenio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Operadora")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Convenio", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Convenios.GuiaAutorizacao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConvenioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<string>("Observacao")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProcedimentoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConvenioId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.HasIndex("ProcedimentoId");
+
+                    b.ToTable("GuiaAutorizacao", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Convenios.PacienteConvenio", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConvenioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NumeroCarteirinha")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Validade")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConvenioId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("PacienteConvenio", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Estoque.ItemEstoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("QuantidadeAtual")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantidadeMinima")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Validade")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemEstoque", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Estoque.MovimentacaoEstoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<Guid>("ItemEstoqueId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Observacao")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemEstoqueId");
+
+                    b.ToTable("MovimentacaoEstoque", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.ContaReceber", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<Guid>("OrcamentoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrcamentoId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("ContaReceber", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.Orcamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Assinado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("AssinadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<Guid>("DentistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentistaId");
+
+                    b.HasIndex("PacienteId");
+
+                    b.ToTable("Orcamento", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.Parcela", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContaReceberId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PagoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Vencimento")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContaReceberId", "Numero")
+                        .IsUnique();
+
+                    b.ToTable("Parcela", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.Procedimento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("ValorBase")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Procedimento", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
                 {
                     b.Property<Guid>("Id")
@@ -146,6 +431,32 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dentistas", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Funcionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Perfil")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionario", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Funcionarios.Usuario", b =>
@@ -316,6 +627,30 @@ namespace Infrastructure.Migrations
                     b.ToTable("Responsavel", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Prontuario.Dente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("OdontogramaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OdontogramaId", "Numero")
+                        .IsUnique();
+
+                    b.ToTable("Dentes");
+                });
+
             modelBuilder.Entity("Domain.Entities.Prontuario.EvolucaoClinica", b =>
                 {
                     b.Property<Guid>("Id")
@@ -326,7 +661,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CriadoEm")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
 
                     b.Property<Guid>("DentistaId")
                         .HasColumnType("uniqueidentifier");
@@ -346,7 +682,85 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ProntuarioId");
 
-                    b.ToTable("EvolucaoClinica");
+                    b.ToTable("Evolucao_clinica", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Prontuario.Odontograma", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProntuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProntuarioId")
+                        .IsUnique();
+
+                    b.ToTable("Odontograma", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Prontuario.PlanoTratamento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<Guid>("DentistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProntuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentistaId");
+
+                    b.HasIndex("ProntuarioId");
+
+                    b.ToTable("PlanoTratamento", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Prontuario.Prescricao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Criado_em");
+
+                    b.Property<Guid>("DentistaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Instrucoes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Medicamentos")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ProntuarioId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentistaId");
+
+                    b.HasIndex("ProntuarioId");
+
+                    b.ToTable("Prescricao", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Prontuario.Prontuario", b =>
@@ -418,6 +832,112 @@ namespace Infrastructure.Migrations
                     b.Navigation("Paciente");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Convenios.GuiaAutorizacao", b =>
+                {
+                    b.HasOne("Domain.Entities.Convenios.Convenio", "Convenio")
+                        .WithMany()
+                        .HasForeignKey("ConvenioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Financeiro.Procedimento", "Procedimento")
+                        .WithMany()
+                        .HasForeignKey("ProcedimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Convenio");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Procedimento");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Convenios.PacienteConvenio", b =>
+                {
+                    b.HasOne("Domain.Entities.Convenios.Convenio", "Convenio")
+                        .WithMany()
+                        .HasForeignKey("ConvenioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Convenio");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Estoque.MovimentacaoEstoque", b =>
+                {
+                    b.HasOne("Domain.Entities.Estoque.ItemEstoque", "ItemEstoque")
+                        .WithMany()
+                        .HasForeignKey("ItemEstoqueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ItemEstoque");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.ContaReceber", b =>
+                {
+                    b.HasOne("Domain.Entities.Financeiro.Orcamento", "Orcamento")
+                        .WithMany()
+                        .HasForeignKey("OrcamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Orcamento");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.Orcamento", b =>
+                {
+                    b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
+                        .WithMany()
+                        .HasForeignKey("DentistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("PacienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.Parcela", b =>
+                {
+                    b.HasOne("Domain.Entities.Financeiro.ContaReceber", "ContaReceber")
+                        .WithMany("Parcelas")
+                        .HasForeignKey("ContaReceberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ContaReceber");
+                });
+
             modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
                 {
                     b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
@@ -482,6 +1002,50 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Cro")
                         .IsRequired();
+
+                    b.Navigation("Email")
+                        .IsRequired();
+
+                    b.Navigation("Telefone")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Funcionarios.Funcionario", b =>
+                {
+                    b.OwnsOne("Domain.ValueObjects.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("FuncionarioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("FuncionarioId");
+
+                            b1.ToTable("Funcionario");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FuncionarioId");
+                        });
+
+                    b.OwnsOne("Domain.ValueObjects.Telefone", "Telefone", b1 =>
+                        {
+                            b1.Property<Guid>("FuncionarioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Valor")
+                                .IsRequired()
+                                .HasMaxLength(11)
+                                .HasColumnType("nvarchar(11)");
+
+                            b1.HasKey("FuncionarioId");
+
+                            b1.ToTable("Funcionario");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FuncionarioId");
+                        });
 
                     b.Navigation("Email")
                         .IsRequired();
@@ -677,16 +1241,56 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Entities.Prontuario.Dente", b =>
+                {
+                    b.HasOne("Domain.Entities.Prontuario.Odontograma", "Odontograma")
+                        .WithMany("Dentes")
+                        .HasForeignKey("OdontogramaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsMany("Domain.ValueObjects.FaceDental", "StatusFaces", b1 =>
+                        {
+                            b1.Property<Guid>("DenteId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<string>("Face")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Status")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("DenteId", "Id");
+
+                            b1.ToTable("DenteFace", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("DenteId");
+                        });
+
+                    b.Navigation("Odontograma");
+
+                    b.Navigation("StatusFaces");
+                });
+
             modelBuilder.Entity("Domain.Entities.Prontuario.EvolucaoClinica", b =>
                 {
                     b.HasOne("Domain.Entities.Agenda.Consulta", "Consulta")
-                        .WithMany()
+                        .WithMany("evolucaoClinicas")
                         .HasForeignKey("ConsultaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
-                        .WithMany()
+                        .WithMany("EvolucaoClinicas")
                         .HasForeignKey("DentistaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -704,6 +1308,55 @@ namespace Infrastructure.Migrations
                     b.Navigation("Prontuario");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Prontuario.Odontograma", b =>
+                {
+                    b.HasOne("Domain.Entities.Prontuario.Prontuario", "Prontuario")
+                        .WithOne("Odontograma")
+                        .HasForeignKey("Domain.Entities.Prontuario.Odontograma", "ProntuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prontuario");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Prontuario.PlanoTratamento", b =>
+                {
+                    b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
+                        .WithMany()
+                        .HasForeignKey("DentistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Prontuario.Prontuario", "Prontuario")
+                        .WithMany("PlanosTratamento")
+                        .HasForeignKey("ProntuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
+
+                    b.Navigation("Prontuario");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Prontuario.Prescricao", b =>
+                {
+                    b.HasOne("Domain.Entities.Funcionarios.Dentista", "Dentista")
+                        .WithMany()
+                        .HasForeignKey("DentistaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Prontuario.Prontuario", "Prontuario")
+                        .WithMany("Prescricoes")
+                        .HasForeignKey("ProntuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Dentista");
+
+                    b.Navigation("Prontuario");
+                });
+
             modelBuilder.Entity("Domain.Entities.Prontuario.Prontuario", b =>
                 {
                     b.HasOne("Domain.Entities.Pacientes.Paciente", "Paciente")
@@ -715,9 +1368,21 @@ namespace Infrastructure.Migrations
                     b.Navigation("Paciente");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Agenda.Consulta", b =>
+                {
+                    b.Navigation("evolucaoClinicas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Financeiro.ContaReceber", b =>
+                {
+                    b.Navigation("Parcelas");
+                });
+
             modelBuilder.Entity("Domain.Entities.Funcionarios.Dentista", b =>
                 {
                     b.Navigation("Consultas");
+
+                    b.Navigation("EvolucaoClinicas");
 
                     b.Navigation("GradeHorarios");
 
@@ -747,9 +1412,21 @@ namespace Infrastructure.Migrations
                     b.Navigation("Pacientes");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Prontuario.Odontograma", b =>
+                {
+                    b.Navigation("Dentes");
+                });
+
             modelBuilder.Entity("Domain.Entities.Prontuario.Prontuario", b =>
                 {
                     b.Navigation("EvolucaoClinicas");
+
+                    b.Navigation("Odontograma")
+                        .IsRequired();
+
+                    b.Navigation("PlanosTratamento");
+
+                    b.Navigation("Prescricoes");
                 });
 #pragma warning restore 612, 618
         }

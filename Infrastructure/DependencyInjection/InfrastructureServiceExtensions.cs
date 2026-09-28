@@ -30,6 +30,19 @@ public static class InfrastructureServiceExtensions
         _serviceCollection.AddScoped<IGradeHorarioRepository,GradeHorarioRepository>();
         _serviceCollection.AddScoped<IProntuarioRepository,ProntuarioRepository>();
         _serviceCollection.AddScoped<IEvolucaoClinicaRepository,EvolucaoClinicaRepository>();
+        _serviceCollection.AddScoped<IOdontogramaRepository,OdontogramaRepository>();
+        _serviceCollection.AddScoped<IPlanoTratamentoRepository,PlanoTratamentoRepository>();
+        _serviceCollection.AddScoped<IPrescricaoRepository,PrescricaoRepository>();
+        _serviceCollection.AddScoped<IProcedimentoRepository,ProcedimentoRepository>();
+        _serviceCollection.AddScoped<IOrcamentoRepository,OrcamentoRepository>();
+        _serviceCollection.AddScoped<IFinanceiroRepository,FinanceiroRepository>();
+        _serviceCollection.AddScoped<IParcelaRepository,ParcelaRepository>();
+        _serviceCollection.AddScoped<IConvenioRepository,ConvenioRepository>();
+        _serviceCollection.AddScoped<IPacienteConvenioRepository,PacienteConvenioRepository>();
+        _serviceCollection.AddScoped<IGuiaAutorizacaoRepository,GuiaAutorizacaoRepository>();
+        _serviceCollection.AddScoped<IEstoqueRepository,EstoqueRepository>();
+        _serviceCollection.AddScoped<IMovimentacaoEstoqueRepository,MovimentacaoEstoqueRepository>();
+        _serviceCollection.AddScoped<IFuncionarioRepository,FuncionarioRepository>();
         _serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         return _serviceCollection;
     }

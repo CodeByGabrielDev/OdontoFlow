@@ -1,6 +1,6 @@
 # OdontoFlow
 
-Sistema de gestão para clínicas odontológicas desenvolvido em .NET 9 com C#, seguindo os princípios de Clean Architecture, DDD e CQRS.
+Sistema de gestão para clínicas odontológicas desenvolvido em .NET 10 com C#, seguindo os princípios de Clean Architecture, DDD e CQRS.
 
 ## Sobre o projeto
 
@@ -18,7 +18,7 @@ O OdontoFlow é um sistema completo de gestão odontológica, cobrindo desde o a
 
 ## Stack tecnológica
 
-- **Linguagem:** C# / .NET 9
+- **Linguagem:** C# / .NET 10
 - **Framework:** ASP.NET Core Web API
 - **ORM:** Entity Framework Core
 - **Banco de dados:** SQL Server
@@ -81,33 +81,41 @@ OdontoFlow/
 
 └── Middleware/
 
-## Regras regulatórias implementadas
+## Regras regulatórias
 
-- Prontuário nunca pode ser deletado (exigência CFO)
-- Todo acesso ao prontuário é auditado com log de usuário, data e hora
-- Retenção mínima de dados por 20 anos
-- Consentimento LGPD para uso de imagens e comunicações
-- Exportação de dados do paciente sob demanda (portabilidade)
+Objetivos de conformidade do projeto (CFO/LGPD). Nem todos estão implementados ainda — status real:
+
+- [x] Prontuário nunca pode ser deletado pelo fluxo normal da aplicação
+- [ ] Auditoria de acesso ao prontuário (log de usuário, data e hora) — evento de domínio existe mas ainda não é despachado
+- [ ] Retenção mínima de dados por 20 anos
+- [ ] Consentimento LGPD para uso de imagens e comunicações
+- [ ] Exportação de dados do paciente sob demanda (portabilidade)
 
 ## Status do projeto
 🚧 Em desenvolvimento
 
 - [x] Arquitetura e estrutura de pastas
 - [x] Domain — entidades, value objects, enums, interfaces
-- [x] Application — Pacientes, Anamnese, Agenda, Dentista, Usuário
+- [x] Application — Pacientes, Anamnese, Agenda, Dentista, Usuário, Prontuário, Financeiro, Convênios, Estoque, Funcionários
 - [x] Infrastructure — repositórios, EF Core, migrations, JWT, BCrypt
-- [x] API — controllers, Swagger com JWT, autenticação completa
+- [x] API — controllers, Swagger com JWT, autenticação completa, autorização por perfil (Role) nos endpoints sensíveis
 - [x] Módulo Pacientes — CRUD completo
 - [x] Módulo Anamnese — com entidades separadas (Alergias, Medicamentos, Doenças)
 - [x] Módulo Agenda — Consultas, Grade Horário, Lista de Espera
 - [x] Autenticação — JWT com registro, login e rotas protegidas
-- [ ] Módulo Prontuário
-- [ ] Módulo Financeiro
-- [ ] Módulo Convênios
-- [ ] Módulo Estoque
-- [ ] Exception Middleware global
-- [ ] Testes automatizados
+- [x] Módulo Prontuário — odontograma (32 dentes), evolução clínica, plano de tratamento, prescrição
+- [x] Módulo Financeiro — procedimentos, orçamentos, contas a receber, parcelamento
+- [x] Módulo Convênios — convênios, vínculo paciente-convênio, guias de autorização
+- [x] Módulo Estoque — itens, movimentações, alerta de estoque mínimo
+- [x] Módulo Funcionários — CRUD básico
+- [x] Exception Middleware global
+- [x] Testes automatizados — cobertura unitária das regras críticas de domínio (`Tests/`)
+- [ ] Migration mais recente (`FinalizaBackend`) aplicada ao banco (gerada, falta rodar `dotnet ef database update`)
 
 ## Como executar
 
-> Em breve — o projeto ainda está em fase de construção da camada de domínio.
+1. Configure a connection string em `API/appsettings.json` (`ConnectionStrings:DefaultConnection`) apontando para uma instância SQL Server acessível.
+2. Aplique as migrations: `dotnet ef database update --project Infrastructure --startup-project API`.
+3. Rode a API: `dotnet run --project API`.
+4. Abra o Swagger (ambiente de desenvolvimento) para autenticar via `/api/auth/register` + `/api/auth/login` e testar os demais endpoints com o token JWT retornado.
+5. Rode os testes automatizados: `dotnet test`.

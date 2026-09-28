@@ -1,6 +1,7 @@
 using Domain.Entities.Financeiro;
 using Domain.Entities.Pacientes;
 using Domain.Enums;
+using Domain.Exceptions;
 namespace Domain.Entities.Convenios;
 
 public class GuiaAutorizacao
@@ -25,5 +26,19 @@ public class GuiaAutorizacao
         this.Status = StatusGuia.Solicitado;
         this.Observacao = observacao;
         this.CriadoEm = DateTime.UtcNow;
+    }
+
+    public void Autorizar()
+    {
+        if (this.Status != StatusGuia.Solicitado)
+            throw new DomainException("Guia so pode ser autorizada se estiver Solicitada.");
+        this.Status = StatusGuia.Autorizado;
+    }
+
+    public void Negar()
+    {
+        if (this.Status != StatusGuia.Solicitado)
+            throw new DomainException("Guia so pode ser negada se estiver Solicitada.");
+        this.Status = StatusGuia.Negado;
     }
 }

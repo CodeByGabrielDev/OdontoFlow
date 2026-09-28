@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Entities.Estoque;
 
 public class ItemEstoque
@@ -19,5 +21,21 @@ public class ItemEstoque
         this.QuantidadeAtual = 0;
         this.Validade = validade;
         this.CriadoEm = DateTime.UtcNow;
+    }
+
+    public void RegistrarEntrada(int quantidade)
+    {
+        if (quantidade <= 0)
+            throw new DomainException("Quantidade de entrada deve ser maior que zero.");
+        this.QuantidadeAtual += quantidade;
+    }
+
+    public void RegistrarSaida(int quantidade)
+    {
+        if (quantidade <= 0)
+            throw new DomainException("Quantidade de saida deve ser maior que zero.");
+        if (quantidade > this.QuantidadeAtual)
+            throw new DomainException("Saldo insuficiente em estoque para essa saida.");
+        this.QuantidadeAtual -= quantidade;
     }
 }
