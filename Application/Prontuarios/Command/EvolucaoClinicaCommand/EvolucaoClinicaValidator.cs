@@ -9,6 +9,6 @@ public class EvolucaoClinicaValidator : AbstractValidator<EvolucaoClinicaCommand
         RuleFor(entidade=>entidade.DentistaId).NotEmpty();
         RuleFor(entidade=>entidade.ProntuarioId).NotEmpty();
         RuleFor(entidade=>entidade.ConsultaId).NotEmpty();
-        
+        RuleFor(entidade=>entidade.Descricao).NotEmpty();
     }
 }

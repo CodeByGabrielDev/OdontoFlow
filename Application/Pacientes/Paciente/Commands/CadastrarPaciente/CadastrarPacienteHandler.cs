@@ -1,4 +1,5 @@
 using Application.Prontuarios.Command;
+using Application.Prontuarios.Command.ProntuarioCommand;
 using Domain.Entities.Pacientes;
 using Domain.Exceptions;
 using Domain.Interfaces;

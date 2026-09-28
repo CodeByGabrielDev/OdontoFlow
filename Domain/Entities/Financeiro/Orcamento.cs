@@ -1,5 +1,6 @@
 using Domain.Entities.Funcionarios;
 using Domain.Entities.Pacientes;
+using Domain.Exceptions;
 namespace Domain.Entities.Financeiro;
 
 public class Orcamento
@@ -24,5 +25,13 @@ public class Orcamento
         this.ValorTotal = valorTotal;
         this.Assinado = false;
         this.CriadoEm = DateTime.UtcNow;
+    }
+
+    public void Assinar()
+    {
+        if (this.Assinado)
+            throw new DomainException("Orcamento ja esta assinado.");
+        this.Assinado = true;
+        this.AssinadoEm = DateTime.UtcNow;
     }
 }

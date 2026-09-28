@@ -9,7 +9,7 @@ public class OdontogramaConfiguration : IEntityTypeConfiguration<Odontograma>
 {
     public void Configure(EntityTypeBuilder<Odontograma>builder)
     {
-        builder.ToTable("odontograma");
+        builder.ToTable("Odontograma");
         builder.HasKey(x=>x.Id);
         builder.HasOne(x=>x.Prontuario)
                .WithOne(y=>y.Odontograma)

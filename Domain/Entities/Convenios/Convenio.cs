@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Entities.Convenios;
 
 public class Convenio
@@ -15,5 +17,19 @@ public class Convenio
         this.Operadora = operadora;
         this.Ativo = true;
         this.CriadoEm = DateTime.UtcNow;
+    }
+
+    public void Ativar()
+    {
+        if (this.Ativo)
+            throw new DomainException("Convenio ja esta ativo.");
+        this.Ativo = true;
+    }
+
+    public void Desativar()
+    {
+        if (!this.Ativo)
+            throw new DomainException("Convenio ja esta inativo.");
+        this.Ativo = false;
     }
 }

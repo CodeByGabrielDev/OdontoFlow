@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Entities.Financeiro;
 
 public class Parcela
@@ -19,5 +21,13 @@ public class Parcela
         this.Valor = valor;
         this.Vencimento = vencimento;
         this.Pago = false;
+    }
+
+    public void RegistrarPagamento()
+    {
+        if (this.Pago)
+            throw new DomainException("Parcela ja esta paga.");
+        this.Pago = true;
+        this.PagoEm = DateTime.UtcNow;
     }
 }

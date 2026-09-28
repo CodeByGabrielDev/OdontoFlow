@@ -21,6 +21,6 @@ public class ObterProntuarioPorIdHandler : IRequestHandler<ObterProntuarioPorIdQ
         {
             throw new DomainException("Prontuario nao encontrado na base de dados");
         }
-        return new ProntuarioDto(prontuario.Paciente.Nome);
+        return ProntuarioDto.FromDomain(prontuario, prontuario.Paciente.Nome);
     }
 }

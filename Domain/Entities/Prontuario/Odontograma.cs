@@ -1,3 +1,5 @@
+using Domain.Exceptions;
+
 namespace Domain.Entities.Prontuario;
 
 public class Odontograma
@@ -15,11 +17,13 @@ public class Odontograma
         this.Dentes = new List<Dente>();
     }
 
-    public void AdicionaDenteNaLista(Odontograma odontogramaDatabase,List<Dente> dentes)
+    public void AdicionaDenteNaLista()
     {
+        if (this.Dentes.Count > 0)
+            throw new DomainException("Odontograma ja possui dentes cadastrados.");
         for (int i = 1;i<=32;i++)
         {
-            dentes.Add(new Dente(odontogramaDatabase.Id,i,DefinirTipo(i)));
+            this.Dentes.Add(new Dente(this.Id,i,DefinirTipo(i)));
         }
     }
     private string DefinirTipo(int numero)

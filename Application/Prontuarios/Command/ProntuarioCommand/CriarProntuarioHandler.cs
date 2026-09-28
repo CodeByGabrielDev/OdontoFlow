@@ -15,9 +15,11 @@ public class CriarProntuarioHandler : IRequestHandler<CriarProntuarioCommand, Pr
     private readonly IUnitOfWork _unitOfWork;
     private readonly IProntuarioRepository _prontuarioRepository;
     private readonly IPacienteRepository _pacienteRepository;
+    private readonly IOdontogramaRepository _odontogramaRepository;
 
-    public CriarProntuarioHandler(IUnitOfWork unit, IProntuarioRepository prontuarioRepo, IPacienteRepository _pacienteRepository)
+    public CriarProntuarioHandler(IOdontogramaRepository _odontogramaRepository,IUnitOfWork unit, IProntuarioRepository prontuarioRepo, IPacienteRepository _pacienteRepository)
     {
+        this._odontogramaRepository =_odontogramaRepository;
         this._unitOfWork = unit;
         this._prontuarioRepository = prontuarioRepo;
         this._pacienteRepository = _pacienteRepository;
@@ -37,10 +39,10 @@ public class CriarProntuarioHandler : IRequestHandler<CriarProntuarioCommand, Pr
         }
         Prontuario prontuario = new Prontuario(paciente.Id);
         await this._prontuarioRepository.AddAsync(prontuario);
-        await this._unitOfWork.SaveChangesAsync();
         Odontograma odontograma = new Odontograma(prontuario.Id);
-        List<Dente> dentes = new List<Dente>();
-        
-        return new ProntuarioDto(paciente.Nome);
+        odontograma.AdicionaDenteNaLista();
+        await this._odontogramaRepository.AddAsync(odontograma);
+        await this._unitOfWork.SaveChangesAsync();
+        return ProntuarioDto.FromDomain(prontuario, paciente.Nome, odontograma);
     }
 }

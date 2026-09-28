@@ -1,6 +1,5 @@
 using Application.Prontuarios.DTOs;
 using Domain.Entities.Prontuario;
-using Domain.Exceptions;
 using Domain.Interfaces;
 using MediatR;
 
@@ -16,14 +15,11 @@ public class ListarTodosProntuariosHandler : IRequestHandler<ListarTodosProntuar
     public async Task<List<ProntuarioDto>> Handle(ListarTodosProntuariosQuery listarTodosProntuariosQuery, CancellationToken cancellationToken)
     {
         List<Prontuario?> prontuarios = await this._prontuarioRepository.ObterTodos();
-        if (prontuarios == null || prontuarios.Count == 0)
-        {
-            throw new DomainException("Não existe prontuario existente na base de dados.");
-        }
         List<ProntuarioDto> prontuarioDtos = new List<ProntuarioDto>();
         foreach (Prontuario? prontuarioInForEach in prontuarios)
         {
-            prontuarioDtos.Add(new ProntuarioDto(prontuarioInForEach.Paciente.Nome));
+            if (prontuarioInForEach == null) continue;
+            prontuarioDtos.Add(ProntuarioDto.FromDomain(prontuarioInForEach, prontuarioInForEach.Paciente.Nome));
         }
         return prontuarioDtos;
     }
