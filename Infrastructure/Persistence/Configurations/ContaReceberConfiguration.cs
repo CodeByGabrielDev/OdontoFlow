@@ -17,7 +17,8 @@ public class ContaReceberConfiguration : IEntityTypeConfiguration<ContaReceber>
         builder.HasOne(entidade => entidade.Orcamento)
                .WithMany()
                .HasForeignKey(entidade => entidade.OrcamentoId)
-               .IsRequired();
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
         builder.Property(entidade => entidade.ValorTotal).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(entidade => entidade.ValorPago).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(entidade => entidade.Pago).IsRequired();

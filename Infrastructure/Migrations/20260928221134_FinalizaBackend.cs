@@ -311,7 +311,7 @@ namespace Infrastructure.Migrations
                         column: x => x.OrcamentoId,
                         principalTable: "Orcamento",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ContaReceber_Pacientes_PacienteId",
                         column: x => x.PacienteId,
@@ -493,7 +493,7 @@ namespace Infrastructure.Migrations
                 column: "ConsultaId",
                 principalTable: "Consultas",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Evolucao_clinica_Dentistas_DentistaId",
@@ -501,7 +501,7 @@ namespace Infrastructure.Migrations
                 column: "DentistaId",
                 principalTable: "Dentistas",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Evolucao_clinica_Prontuario_ProntuarioId",
